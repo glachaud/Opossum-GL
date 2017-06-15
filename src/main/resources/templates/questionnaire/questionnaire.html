@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Questionnaire')"></head>
+
+<body>
+
+<!--  HEADER  -->
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<!-- FIN DU HEADER -->
+
+    <div class="container-fluid colonnes-home">
+
+    <div th:if="${user.role == 'teacher'}"><div th:replace="fragments/teacher_column :: teacher_column (type='idea')"></div></div>
+    <div th:if="${user.role == 'admin'}"><div th:replace="fragments/admin_column :: admin_column (type='questionnaire')"></div></div>
+
+    <div class="col-md-10 colonne-droite no-padding">
+
+        <div class="scrollableDiv">
+
+            <h2 class="text-center" th:text="${questionnaire.name}">Titre du questionnaire</h2>
+
+            <div class="div_commentaire">
+                <button class="btn btn-primary btn_eleve" data-toggle="modal" data-target="#previsualisation">
+                    <span class="glyphicon glyphicon-eye-open"></span> Prévisualisation
+                </button>
+                <button th:if="${user.role == 'teacher'}" class="btn btn-primary btn_eleve" data-toggle="modal" data-target="#modification">
+                    <span class="glyphicon glyphicon-pencil"></span> Modifier le questionnaire
+                </button>
+            </div>
+
+            <div th:each="question : ${#lists.sort(questionnaire.questions)}" class="panel panel-primary panel-question">
+                <div class="panel-heading" th:text="${question.question}"><strong>Première question</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire" th:text="${question.answers.size()} + ' réponses'">25 réponses</span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire" th:text="${#strings.capitalize(question.type)}">Slider</span>
+                    </div>
+                    <div th:if="${question.answers.size() > 0}" th:switch="${question.type}" class="col-md-8">
+                        <span th:case="'ouverte'"></span>
+                        <span th:case="'slider'" ><span class="glyphicon glyphicon-tasks"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Réponse moyenne : <i th:class="'em '+${question.getAvgAnswer()}"></i></span></span>
+                        <span th:case="'selecteur'" ><span class="glyphicon glyphicon-tasks"
+                                                 aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse la plus donnée : <span th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="'qcm'" ><span class="glyphicon glyphicon-tasks"
+                                                           aria-hidden="true"></span><span
+                                class="info-questionnaire"><span th:text="${question.isQcmWithRightAnswers() ? 'Nombre de bonnes réponses :' : 'Réponse la plus donnée :'}"></span> <span th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="*" ><span class="glyphicon glyphicon-tasks"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Réponse moyenne : <span th:text="${question.getAvgAnswer()}"></span></span></span>
+                    </div>
+
+                    <div class="col-md-12 show_more_button" th:if="${question.answers.size() > 0}">
+                        <p>
+                            <button class="btn btn-primary" type="button"
+                                    data-toggle="collapse"
+                                    aria-expanded="false"
+                                    th:attr="aria-controls='question'+${question.id},
+                                    data-target='#question'+${question.id}">
+                                Afficher plus de détails
+                            </button>
+                        </p>
+                        <div th:if="${question.answers.size() > 0}" class="collapse" th:id="'question'+${question.id}">
+                            <div th:switch="${question.type}">
+
+                                <div th:case="'slider'" class="well">
+
+                                    <div class="qcm_answers" th:each="emoji : ${question.getEmojisInArray()}">
+                                        <span class="qcm_answer_title"><i th:class="'em ' + ${emoji}"></i></span>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped active" role="progressbar" th:attr="aria-valuenow=${question.getPourcentageForThisEmoji(emoji)}"
+                                                 aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${question.getPourcentageForThisEmoji(emoji)}+'%'" th:text="${question.getPourcentageForThisEmoji(emoji)} + ' % (' + ${question.getNbAnswerForThisEmoji(emoji)} + ')'">
+                                                40%
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">Elève</th>
+                                            <th class="col-md-8">Réponse</th>
+                                            <th class="col-md-2">Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="answer : ${question.answers}">
+                                            <td th:text="${questionnaire.anonyme ? 'Eleve' : answer.user.firstName + ' ' + answer.user.lastName}">Eleve</td>
+                                            <td><i th:class="'em '+${answer.getAnswerEmoji()}" class="em em-smiley"></i> <span th:text="'('+${answer.answer}+'%)'">(75%)</span>
+                                            </td>
+                                            <td th:text="${#calendars.format(answer.date, 'dd MMM yyyy HH:mm')}">18 janvier à 15H30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div th:case="'ouverte'" class="well">
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">Elève</th>
+                                            <th class="col-md-8">Réponse</th>
+                                            <th class="col-md-2">Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="answer : ${question.answers}">
+                                            <td th:text="${questionnaire.anonyme ? 'Eleve' : answer.user.firstName + ' ' + answer.user.lastName}">Eleve</td>
+                                            <td><span th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(answer.answer),'\n','&lt;br /&gt;'))}">Réponse</span>
+                                            </td>
+                                            <td th:text="${#calendars.format(answer.date, 'dd MMM yyyy HH:mm')}">18 janvier à 15H30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div th:case="'selecteur'" class="well">
+
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                    </div>
+                                    <div class="col-md-1"></div>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">Elève</th>
+                                            <th class="col-md-8">Réponse</th>
+                                            <th class="col-md-2">Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="answer : ${question.answers}">
+                                            <td th:text="${questionnaire.anonyme ? 'Eleve' : answer.user.firstName + ' ' + answer.user.lastName}">Eleve</td>
+                                            <td><span th:text="${answer.answer}">Réponse</span>
+                                            </td>
+                                            <td th:text="${#calendars.format(answer.date, 'dd MMM yyyy HH:mm')}">18 janvier à 15H30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div th:case="'roti'" class="well">
+
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                    </div>
+                                    <div class="col-md-1"></div>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">Elève</th>
+                                            <th class="col-md-8">Réponse</th>
+                                            <th class="col-md-2">Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="answer : ${question.answers}">
+                                            <td th:text="${questionnaire.anonyme ? 'Eleve' : answer.user.firstName + ' ' + answer.user.lastName}">Eleve</td>
+                                            <td><span th:text="${answer.answer}">Réponse</span>
+                                            </td>
+                                            <td th:text="${#calendars.format(answer.date, 'dd MMM yyyy HH:mm')}">18 janvier à 15H30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div th:case="'notation'" class="well">
+
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                    </div>
+                                    <div class="col-md-1"></div>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">Elève</th>
+                                            <th class="col-md-8">Réponse</th>
+                                            <th class="col-md-2">Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="answer : ${question.answers}">
+                                            <td th:text="${questionnaire.anonyme ? 'Eleve' : answer.user.firstName + ' ' + answer.user.lastName}">Eleve</td>
+                                            <td><span th:text="${answer.answer}">Réponse</span>
+                                            </td>
+                                            <td th:text="${#calendars.format(answer.date, 'dd MMM yyyy HH:mm')}">18 janvier à 15H30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div th:case="'qcm'" class="well">
+
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                       <!-- <div class="qcm_answers" th:each="qcm : ${question.getQcmsInArray()}">
+                                            <span class="qcm_answer_title" th:text="${qcm}">Philippe Vienparici</span>
+                                            <div class="progress">
+                                                <div th:class="${question.getClassThisQcmAnswer(qcm)}" role="progressbar" th:attr="aria-valuenow=${question.getPourcentageForThisAnswer(qcm)}"
+                                                     aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${question.getPourcentageForThisAnswer(qcm)}+'%'" th:text="${question.getPourcentageForThisAnswer(qcm)} + ' % (' + ${question.getNbAnswerForThisAnswer(qcm)} + ')'">
+                                                    40%
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-2">Elève</th>
+                                            <th class="col-md-8">Réponse</th>
+                                            <th class="col-md-2">Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="answer : ${question.answers}">
+                                            <td th:text="${questionnaire.anonyme ? 'Eleve' : answer.user.firstName + ' ' + answer.user.lastName}">Eleve</td>
+                                            <td>
+                                                <p th:each="a : ${answer.getSplittedAnswer()}" th:text="${a}" th:class="${question.isQcmWithRightAnswers() ? question.isItRightQcmAnswer(a) ? 'text-green' : 'text-red' : ''}">Réponse</p>
+                                            </td>
+                                            <td th:text="${#calendars.format(answer.date, 'dd MMM yyyy HH:mm')}">18 janvier à 15H30</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="previsualisation" tabindex="-1" role="dialog" aria-labelledby="previsualisation" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">&times;</button>
+                <h5 class="modal-title"><span class="glyphicon glyphicon-eye-open"></span>  Prévisualisation</h5>
+            </div>
+            <div class="modal-body">
+                <div th:each="question : ${#lists.sort(questionnaire.getQuestions())}" class="form-group">
+                    <div th:switch="${question.type}">
+                        <div th:case="'ouverte'">
+                            <label th:attr="for=${question.id}" th:text="${question.question}">Comment était mon cours
+                                ?</label>
+                            <textarea class="form-control" rows="5"
+                                      th:id="${question.id}" th:attr="data-question=${question.id}"></textarea>
+                        </div>
+                        <div th:case="'slider'">
+                            <label th:attr="for=${question.id}" th:text="${question.question}">Comment était mon cours
+                                ?</label>
+                            <div class="input-group slider_emoji">
+                                <div class="col-md-11">
+                                    <input class="form-control input_emoji"
+                                           type="range" value="50" max="100"
+                                           min="0" step="5"
+                                           th:attr="data-question=${question.id}">
+                                </div>
+                                <div class="col-md-1 smiley_slider">
+                                    <i th:class="'em '+${question.getEmojisInArray().length > 0 ? question.getEmojisInArray()[2] : 'em-expressionless'}"
+                                       th:id="'emoji-'+${question.id}" data-toggle="popover"
+                                       data-html="true"
+                                       data-placement="bottom"></i>
+                                    <input type="hidden"
+                                           th:name="'tres_mauvais_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray().length > 0 ? question.getEmojisInArray()[0] : 'em-tired_face'}"/>
+                                    <input type="hidden" th:name="'mauvais_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray().length > 0 ? question.getEmojisInArray()[1] : 'em-disappointed'}"/>
+                                    <input type="hidden" th:name="'mitige_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray().length > 0 ? question.getEmojisInArray()[2] : 'em-expressionless'}"/>
+                                    <input type="hidden" th:name="'heureux_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray().length > 0 ? question.getEmojisInArray()[3] : 'em-smiley'}"/>
+                                    <input type="hidden"
+                                           th:name="'tres_heureux_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray().length > 0 ? question.getEmojisInArray()[4] : 'em-heart_eyes'}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:case="'notation'">
+                            <label th:attr="for=${question.id}" th:text="${question.question}">Une note ?</label>
+                            <span class="infos_sup" th:text="'(Note entre ' + ${question.min_grade} + ' et ' + ${question.max_grade} + ')'"></span>
+                            <input type="hidden" name="max" th:value="${question.max_grade}" th:id="'max'+${question.id}"/>
+                            <input type="hidden" name="min" th:value="${question.min_grade}" th:id="'min'+${question.id}"/>
+                            <input class="form-control" type="number"
+                                   th:attr="data-question=${question.id}" th:value="${#numbers.formatDecimal((question.max_grade+question.min_grade)/2, 0, 0)}" th:max="${question.max_grade}" th:min="${question.min_grade}">
+                        </div>
+                        <div th:case="'roti'">
+                            <label th:text="${question.question}">ROTI</label>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'1'" th:attr="data-question=${question.id}" type="radio" name="roti" value="1"/>
+                                <label th:for="${question.id}+'1'">1</label>
+                                <span>Je n'ai rien gagné et rien appris, j'ai vraiment perdu mon temps !</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'2'" th:attr="data-question=${question.id}" type="radio" name="roti" value="2"/>
+                                <label th:for="${question.id}+'2'">2</label>
+                                <span>Utile, mais ça ne valait pas le temps qu'on y a passé.</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'3'" th:attr="data-question=${question.id}" type="radio" name="roti" value="3"/>
+                                <label th:for="${question.id}+'3'">3</label>
+                                <span>Dans la moyenne... Correspondait à mes attentes.</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'4'" th:attr="data-question=${question.id}" type="radio" name="roti" value="4"/>
+                                <label th:for="${question.id}+'4'">4</label>
+                                <span>Bien ! J'ai appris plus que je ne l'espérais pour le temps qu'on y a passé.</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'5'" th:attr="data-question=${question.id}" type="radio" name="roti" value="5"/>
+                                <label th:for="${question.id}+'5'">5</label>
+                                <span>Excellent ! Cela valait bien plus que le temps qu'on y a passé !</span>
+                            </div>
+                        </div>
+                        <div th:case="'selecteur'">
+                            <label th:attr="for=${question.id}" th:text="${question.question}">ROTI</label>
+                            <select class="form-control" th:id="${question.id}" th:attr="data-question=${question.id}">
+                                <option th:each="selecteur : ${question.getSelectorsInArray()}" th:value="${selecteur}" th:text="${selecteur}">0</option>
+                            </select>
+                        </div>
+                        <div th:case="'qcm'">
+                            <label th:text="${question.question}">QCM</label>
+                            <div class="checkbox icheck-primary" th:each="qcm, iterStat : ${question.getQcmsInArray()}">
+                                <input th:id="'qcm'+${iterStat.index}+${question.id}" th:attr="data-question=${question.id}" type="checkbox" name="qcm" th:value="${qcm}"/>
+                                <label th:text="${qcm}" th:for="'qcm'+${iterStat.index}+${question.id}">Option 1</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modification" class="modal fade" role="dialog"
+     tabindex="-1" th:if="${user.role == 'teacher'}">
+    <div class="modal-dialog modal-lg container">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">&times;
+                </button>
+                <h4 class="modal-title text-primary"><span
+                        class="glyphicon glyphicon glyphicon-pencil"></span> Modification du questionnaire</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="titre_questionnaire">Titre du questionnaire</label>
+                        <input type="text" class="form-control" id="titre_questionnaire" th:value="${questionnaire.name}"/>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1">
+                            <div class="checkbox icheck-primary">
+                                <input id="enable_datepicker2" type="checkbox"/>
+                                <label for="enable_datepicker2"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group row date">
+                                <div class="col-md-5">
+                                    <div class='input-group'
+                                         id='date_debut_questionnaire_edit'>
+                                        <input type='text'
+                                               class="form-control datepick"
+                                               placeholder="De"
+                                               disabled="disabled" th:value="${ questionnaire.dateDebut != null ? #calendars.format(questionnaire.dateDebut, 'dd/MM/yyyy HH:mm') : ''}"/>
+                                        <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class='input-group'
+                                         id='date_fin_questionnaire_edit'>
+                                        <input type='text'
+                                               class="form-control datepick"
+                                               placeholder="A"
+                                               disabled="disabled" th:value="${ questionnaire.dateDebut != null ? #calendars.format(questionnaire.dateFin, 'dd/MM/yyyy HH:mm') : ''}"/>
+                                        <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="questions_questionnaire">
+                        <input type="hidden" id="emoji_change" name="emoji_change" value="1"/>
+                        <div id="all_questions2">
+                            <div class="panel panel-primary div_question panel_edit" th:each="question, iterStat : ${#lists.sort(questionnaire.questions)}" th:id="'form_question_'+${(iterStat.index + 1)}" th:attr="data-id=${(iterStat.index + 1)}, data-question=${question.id}">
+                                <div class="panel-heading"><strong th:text="'Question '+${(iterStat.index + 1)}">Question
+                                    1</strong> <span
+                                        class="glyphicon glyphicon-remove delete_question"
+                                        th:attr="onclick='deleteQuestion('+${(iterStat.index+1)}+');'"></span></div>
+
+                                <div class="panel-body">
+                                    <div class="col-md-1"></div>
+
+                                    <div class="col-md-11 panel_form_questionnaire">
+                                        <div class="form-group row">
+                                            <div class="col-md-3 label_question_modal">
+                                                <label for="titre_question">Question</label>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="titre_question" th:value="${question.question}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-3 label_question_modal">
+                                                <label>Type de
+                                                    question</label>
+                                            </div>
+
+                                            <div class="col-md-9">
+                                                <div class="btn-group btn-group-justified">
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="ouverte"
+                                                                th:attr="data-question=${iterStat.index+1}">
+                                                            Ouverte
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="selecteur"
+                                                                th:attr="data-question=${iterStat.index+1}">
+                                                            Selecteur
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="notation"
+                                                                th:attr="data-question=${iterStat.index+1}">
+                                                            Notation
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="slider"
+                                                                th:attr="data-question=${iterStat.index+1}">
+                                                            Slider
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="roti"
+                                                                th:attr="data-question=${iterStat.index+1}">
+                                                            ROTI
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="qcm"
+                                                                th:attr="data-question=${iterStat.index+1}">
+                                                            QCM
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden"
+                                                       th:id="'type_question_'+${iterStat.index+1}"
+                                                       name="type_question"
+                                                       th:value="${question.type}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             th:id="'ouverte_'+${iterStat.index+1}" th:style="${question.type == 'ouverte' ? 'display:block;' : ''}">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Ouverte</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                Réponse sous forme de commentaire
+                                                libre de la part de l'élève
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             th:id="'selecteur_'+${iterStat.index+1}" th:style="${question.type == 'selecteur' ? 'display:block;' : ''}">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Selecteur</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="form-group row">
+
+                                                    <div class="col-md-12">
+                                                        <div th:id="'groupe_select-'+${iterStat.index+1}">
+                                                            <div th:each="select, iterate : ${question.getSelectorsInArray()}" th:class="'input-group'+${iterate.index == 0 ? '' : ' select_input_question'}">
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       name="valeur_question" th:value="${select}"><span
+                                                                    class="input-group-addon remove_addon"
+                                                                    onclick="remove_select_input.call( this );"><span
+                                                                    class="glyphicon glyphicon-remove"></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                                class="btn btn-primary add_question_button"
+                                                                th:attr="onclick='addSelect('+${iterStat.index + 1}+');'">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             th:id="'notation_'+${iterStat.index + 1}" th:style="${question.type == 'notation' ? 'display:block;' : ''}">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Notation</strong>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number"
+                                                           class="form-control"
+                                                           name="valeur_question"
+                                                           placeholder="De" th:value="${question.min_grade}"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number"
+                                                           class="form-control"
+                                                           name="valeur_question2"
+                                                           placeholder="A" th:value="${question.max_grade}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             th:id="'slider_'+${iterStat.index+1}" th:style="${question.type == 'slider' ? 'display:block;' : ''}">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Slider</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="input-group slider_emoji">
+                                                    <div class="col-md-11">
+                                                        <input class="form-control input_emoji"
+                                                               type="range"
+                                                               value="50" max="100"
+                                                               min="0" step="5"
+                                                               th:attr="data-question=${iterStat.index+1}"/>
+                                                    </div>
+                                                    <div class="col-md-1 smiley_slider">
+                                                        <i th:class="'popover-emoji em '+${question.getEmojisInArray().length > 1 ? question.getEmojisInArray()[2] : 'em-expressionless'}"
+                                                           th:id="'emoji-'+${iterStat.index+1}" data-toggle="popover"
+                                                           data-html="true"
+                                                           th:attr="data-id=${iterStat.index+1}"
+                                                           data-placement="bottom"></i>
+                                                        <input type="hidden"
+                                                               th:name="'tres_mauvais_'+${iterStat.index+1}"
+                                                               th:attr="value=${question.getEmojisInArray().length > 1 ? question.getEmojisInArray()[0] : 'em-tired_face'}"/>
+                                                        <input type="hidden" th:name="'mauvais_'+${iterStat.index+1}"
+                                                               th:attr="value=${question.getEmojisInArray().length > 1 ? question.getEmojisInArray()[1] : 'em-disappointed'}"/>
+                                                        <input type="hidden" th:name="'mitige_'+${iterStat.index+1}"
+                                                               th:attr="value=${question.getEmojisInArray().length > 1 ? question.getEmojisInArray()[2] : 'em-expressionless'}"/>
+                                                        <input type="hidden" th:name="'heureux_'+${iterStat.index+1}"
+                                                               th:attr="value=${question.getEmojisInArray().length > 1 ? question.getEmojisInArray()[3] : 'em-smiley'}"/>
+                                                        <input type="hidden"
+                                                               th:name="'tres_heureux_'+${iterStat.index+1}"
+                                                               th:attr="value=${question.getEmojisInArray().length > 1 ? question.getEmojisInArray()[4] : 'em-heart_eyes'}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             th:id="'roti_'+${iterStat.index+1}" th:style="${question.type == 'roti' ? 'display:block;' : ''}">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>ROTI</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                Réponse où l'élève pourra choisir
+                                                une note entre 1 et 5.
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             th:id="'qcm_'+${iterStat.index+1}" th:style="${question.type == 'qcm' ? 'display:block;' : ''}">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>QCM</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="form-group row">
+
+                                                    <div class="col-md-12">
+                                                        <div th:id="'groupe_qcm-'+${iterStat.index+1}">
+                                                            <div th:class="'input-group'+${iteration.index != 0 ? ' select_input_question' : ''}" th:each="qcm, iteration : ${question.getQcmsInArray()}">
+                                                                <input type="text"
+                                                                       th:class="'form-control' + ${question.isQcmWithRightAnswers() ? (question.isItRightQcmAnswer(qcm) ? ' is_true' : '') : ''}"
+                                                                       name="valeur_question" th:value="${qcm}"><span
+                                                                    class="input-group-addon remove_addon"
+                                                                    onclick="remove_select_input.call( this );"><span
+                                                                    class="glyphicon glyphicon-remove"></span></span>
+                                                                <span
+                                                                        class="input-group-addon istrue_addon"
+                                                                        onclick="is_true.call( this );"><span
+                                                                        class="glyphicon glyphicon-ok"></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                                class="btn btn-primary add_question_button"
+                                                                th:attr="onclick='addQCM('+${iterStat.index+1}+');'">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary"
+                                    th:attr="data-question=${questionnaire.questions.size()+1}"
+                                    onclick="addQuestion.call( this );">Ajouter
+                                une question
+                            </button>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="checkbox icheck-primary checkbox_template">
+                                <input id="anonymat2" type="checkbox"
+                                       name="anonymat" th:attr="checked=${questionnaire.anonyme ? 'true' : 'false'}"/>
+                                <label for="anonymat2">Anonymat des
+                                    réponses</label>
+                            </div>
+                            <div class="checkbox icheck-primary checkbox_template">
+                                <input id="template2" type="checkbox"
+                                       name="template" th:attr="checked=${template == null ? 'false' : 'true'}"/>
+                                <label for="template2">Enregistrer ce
+                                    template</label>
+                                <div class="input-group template_name"
+                                     id="template_name2" th:style="${template == null ? '' : 'display:block;'}">
+                                    <input type="text" class="form-control"
+                                           name="nom_template"
+                                           placeholder="Nom du template" th:value="${template == null ? '' : template.nom}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" th:action="@{/questionnaire/add}"
+                        id="edit_questionnaire_submit" th:attr="data-questionnaire=${questionnaire.id}">Editer
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

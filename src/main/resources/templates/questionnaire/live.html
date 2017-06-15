@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Questionnaire')"></head>
+
+<body>
+
+<!--  HEADER  -->
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<!-- FIN DU HEADER -->
+
+<div class="container-fluid colonnes-home">
+    <div class="col-md-4 text_center colonne-gauche" id="colonne-gauche">
+        <div class="scrollableDiv">
+
+            <input type="hidden" id="id_questionnaire" th:value="${questionnaire.id}"/>
+
+            <button th:class="'btn ' + ${questionnaire.ongoing == true ? 'btn-danger' : 'btn-success'} + ' btn_live_off'"><span class="glyphicon glyphicon-off"></span><span class="text-btn_live_off" th:text="${questionnaire.ongoing == true ? 'Arrêter le live' : 'Reprendre le live'}">Arrêter le live</span></button>
+
+            <div class="panel panel-primary add_element_live_div" id="add_el_div">
+                <div class="panel-heading"><span class="glyphicon glyphicon-plus"></span>Ajouter un élément au live</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Titre / Question" class="form-control" id="titre_question" name="titre_question">
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" id="select_element" name="select_element">
+                                <option value="none">Choisir un type</option>
+                                <option value="instruction">Instruction</option>
+                                <option value="en_un_mot">En un mot</option>
+                                <option value="selecteur">Sélecteur</option>
+                                <option value="notation">Notation</option>
+                                <option value="slider">Slider</option>
+                                <option value="roti">ROTI</option>
+                                <option value="qcm">QCM</option>
+                            </select>
+                            <input type="hidden" id="type_question_1" value="none"/>
+                        </div>
+
+                        <div class="form-group row valeur_question" id="instruction_1">
+
+                            <div class="col-md-12">
+                                <textarea id="instruction_textarea" rows="5"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row valeur_question" id="en_un_mot_1">
+
+                            <div class="col-md-12">
+                                Réponse en un mot de l'élève
+                            </div>
+                        </div>
+
+                        <div class="form-group row valeur_question" id="selecteur_1">
+
+                            <div class="col-md-12">
+                                <div class="form-group row">
+
+                                    <div class="col-md-12">
+                                        <div id="groupe_select-1">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="valeur_question"><span class="input-group-addon remove_addon" onclick="remove_select_input.call( this );"><span class="glyphicon glyphicon-remove"></span></span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary add_question_button" onclick="addSelect(1);">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row valeur_question" id="notation_1">
+
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="valeur_question" placeholder="De">
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="valeur_question2" placeholder="A">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row valeur_question" id="slider_1">
+
+                            <div class="col-md-12">
+                                <div class="input-group slider_emoji">
+                                    <div class="col-md-11">
+                                        <input class="form-control input_emoji" type="range" value="50" max="100" min="0" step="5" data-question="1">
+                                    </div>
+                                    <div class="col-md-1 smiley_slider">
+                                        <i class="popover-emoji em em-expressionless" id="emoji-1" data-toggle="popover" data-html="true" data-placement="bottom"></i>
+                                        <input type="hidden" name="tres_mauvais_1" value="em-tired_face"/>
+                                        <input type="hidden" name="mauvais_1" value="em-disappointed"/>
+                                        <input type="hidden" name="mitige_1" value="em-expressionless"/>
+                                        <input type="hidden" name="heureux_1" value="em-smiley"/>
+                                        <input type="hidden" name="tres_heureux_1" value="em-heart_eyes"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row valeur_question" id="roti_1">
+
+                            <div class="col-md-12">
+                                Réponse où l'élève pourra choisir une note entre 1 et 5.
+                            </div>
+                        </div>
+
+                        <div class="form-group row valeur_question"
+                             id="qcm_1">
+
+                            <div class="col-md-12">
+                                <div class="form-group row">
+
+                                    <div class="col-md-12">
+                                        <div id="groupe_qcm-1">
+                                            <div class="input-group">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       name="valeur_question"><span
+                                                    class="input-group-addon remove_addon"
+                                                    onclick="remove_select_input.call( this );"><span
+                                                    class="glyphicon glyphicon-remove"></span></span>
+                                                                    <span
+                                                                            class="input-group-addon istrue_addon"
+                                                                            onclick="is_true.call( this );"><span
+                                                                            class="glyphicon glyphicon-ok"></span></span>
+                                            </div>
+                                        </div>
+                                        <button type="button"
+                                                class="btn btn-primary add_question_button"
+                                                onclick="addQCM(1);">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                        <button class="btn btn-success" id="btn-add-el-live"><span class="glyphicon glyphicon-send"></span> Ajouter</button>
+                </div>
+            </div>
+            <input type="hidden" id="index_question" th:value="${questionnaire.questions.size()}"/>
+
+            <div class="allCommentsModals">
+                <div th:each="commentaire : ${commentaires}" th:id="'commentaire_'+${commentaire.id}" class="panel panel-default panel_live_comment live_prof_comment">
+                    <div class="panel-heading date-comment" th:attr="data-time=${#calendars.format(questionnaire.date,commentaire.date)}" th:text="${#calendars.format(questionnaire.date,commentaire.date)}">Il y a 10 minutes</div>
+                    <div class="panel-body" th:text="${commentaire.message}">Bonjour, comment  allez vous ?</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-8 colonne-droite no-padding">
+
+        <div class="scrollableDiv">
+
+            <h2 class="text-center" th:text="${questionnaire.name}">Titre du questionnaire</h2>
+
+            <div id="elements_live">
+
+                <div th:each="question : ${#lists.sort(questionnaire.questions)}" class="panel panel-primary panel-question" th:attr="data-id=${question.getId()}">
+                    <div class="panel-heading" th:text="${question.question}"><strong>Première question</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-2" th:if="${question.type != 'instruction'}">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                                class="info-questionnaire"><span class="nbAnswer" th:text="${question.answers.size()}">25</span> réponses</span>
+                        </div>
+                        <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                                class="info-questionnaire" th:text="${question.type == 'en_un_mot' ? 'En un mot' : #strings.capitalize(question.type)}">Slider</span>
+                        </div>
+                        <div th:switch="${question.type}" class="col-md-8">
+                            <span th:case="'ouverte'"></span>
+                        <span th:case="'slider'" ><span class="glyphicon glyphicon-tasks"
+                                                        aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse moyenne : <i class="resultAnswer" th:class="'em '+${question.getAvgAnswer()}"></i></span></span>
+                        <span th:case="'selecteur'" ><span class="glyphicon glyphicon-tasks"
+                                                           aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse la plus donnée : <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="'qcm'" ><span class="glyphicon glyphicon-tasks"
+                                                     aria-hidden="true"></span><span
+                                class="info-questionnaire"><span th:text="${question.isQcmWithRightAnswers() ? 'Nombre de bonnes réponses :' : 'Réponse la plus donnée :'}"></span> <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="'instruction'" ></span>
+                        <span th:case="'en_un_mot'" ><span class="glyphicon glyphicon-tasks"
+                                                 aria-hidden="true"></span><span
+                                class="info-questionnaire">Mot le plus donné : <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="*" ><span class="glyphicon glyphicon-tasks"
+                                                 aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse moyenne : <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        </div>
+
+                        <div class="col-md-12 show_more_button">
+
+                            <div th:id="'question'+${question.id}">
+                                <div th:switch="${question.type}">
+
+                                    <div th:case="'slider'">
+
+                                        <div class="qcm_answers" th:attr="data-id=${question.getId()}">
+                                            <div class='emoji_div' th:each="emoji : ${question.getEmojisInArray()}">
+                                                <span class="qcm_answer_title"><i th:class="'em ' + ${emoji}"></i></span>
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped active" role="progressbar" th:attr="aria-valuenow=${question.getPourcentageForThisEmoji(emoji)}"
+                                                         aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${question.getPourcentageForThisEmoji(emoji)}+'%'" th:text="${question.getPourcentageForThisEmoji(emoji)} + ' % (' + ${question.getNbAnswerForThisEmoji(emoji)} + ')'">
+                                                        40%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div th:case="'en_un_mot'">
+
+                                        <div class="wordCloud" th:attr="data-question=${question.id}"></div>
+
+                                    </div>
+
+                                    <div th:case="'instruction'">
+
+                                        <pre th:text="${question.instruction}"></pre>
+
+                                    </div>
+
+                                    <div th:case="'selecteur'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div th:case="'roti'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div th:case="'notation'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div th:case="'qcm'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <!-- <div class="qcm_answers" th:each="qcm : ${question.getQcmsInArray()}">
+                                             <span class="qcm_answer_title" th:text="${qcm}">Philippe Vienparici</span>
+                                             <div class="progress">
+                                                 <div th:class="${question.getClassThisQcmAnswer(qcm)}" role="progressbar" th:attr="aria-valuenow=${question.getPourcentageForThisAnswer(qcm)}"
+                                                      aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${question.getPourcentageForThisAnswer(qcm)}+'%'" th:text="${question.getPourcentageForThisAnswer(qcm)} + ' % (' + ${question.getNbAnswerForThisAnswer(qcm)} + ')'">
+                                                     40%
+                                                 </div>
+                                             </div>
+                                         </div> -->
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

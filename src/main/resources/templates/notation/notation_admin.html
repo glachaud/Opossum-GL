@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Notations')"></head>
+
+<body>
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<div class="container-fluid colonnes-home">
+
+    <div th:replace="fragments/admin_column :: admin_column (type='note')"></div>
+
+    <div class="col-md-10 colonne-droite">
+
+        <div class="scrollableDiv">
+
+            <div class="titre_cours blue"><h4>Note de la classe : <b th:text="${module.name}">"Algorithmie
+                avancée"</b></h4></div>
+
+            <div class="message">
+
+                <div class="media">
+                    <div class="media-left">
+                        <img th:src="${module.teacher.hasPhoto() ? '/files/' + module.teacher.photo : '/img/photos_profil/default-user-image.png'}"
+                             class="media-object" style="width:60px">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><span th:text="${module.teacher.getFirstName() + ' ' + module.teacher.getLastName()}">John Doe</span>
+                            <small><i th:text="'Noté le ' + ${#calendars.format(module.datePourNotif, 'dd MMM yyyy HH:mm')}">Noté le 14 janvier 2017 à 12h30</i>
+                            </small>
+                        </h4>
+                        <p th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(module.commentaire),'\n','&lt;br /&gt;'))}">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Morbi placerat mi sit amet leo vehicula
+                            pretium. Donec ac lacus sed ligula ullamcorper
+                            luctus pellentesque ut velit. Vivamus porta suscipit
+                            tortor, et consequat tortor ullamcorper vitae.
+                            Vivamus hendrerit nisl eu lorem ultricies, vel
+                            dignissim mauris tempus. Vestibulum viverra, ipsum
+                            et pellentesque pulvinar, nisi eros tempus metus,
+                            nec bibendum lacus dui quis dolor. Ut tempor lacus
+                            eu lacinia sodales. Suspendisse at imperdiet eros.
+                            Suspendisse pharetra, erat vitae semper laoreet,
+                            nunc nulla lobortis tellus, nec vestibulum nisi
+                            justo id magna.
+                        </p>
+                        <p><b>Note</b> : <span th:text="${module.note}">8</span>/10</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

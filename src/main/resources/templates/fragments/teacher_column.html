@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="teacher_column (type)" class="col-md-2 text_center colonne-gauche" id="colonne-gauche">
+    <div class="scrollableDiv">
+        <input type="hidden" id="module_id" name="module_id" th:value="${module_id}"/>
+        <button type="button" class="btn btn-primary btn_add_questionnaire"
+                data-toggle="modal" data-target="#form_ajout_questionnaire">
+            <span class="glyphicon glyphicon-plus"></span> Questionnaire
+        </button>
+        <button type="button" class="btn btn-primary btn_live_questionnaire"
+                data-toggle="modal" data-target="#form_live_questionnaire">
+            <span class="glyphicon glyphicon-play"></span> Commencer un Live
+        </button>
+
+        <div id="form_live_questionnaire" class="modal fade live_modal" role="dialog"
+             tabindex="-1">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;
+                        </button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-play"></span> Commencer un Live</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_add_live"
+                              onsubmit="$('.add_live').click(); return false;">
+                            <div class="form-group">
+                                <label for="titre_live">Nom du live</label>
+                                <input type="text" class="form-control"
+                                       id="titre_live" name="titre_live"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-success add_live">C'est parti !
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="categorie-home current_categorie showFolder" id="dossier0" data-id="0"><span
+                class="glyphicon glyphicon-folder-open"></span> <span
+                class="dossier_name">Dossier courant</span>
+        </div>
+        <div class="categorie-home showFolder"  th:id="'dossier' + ${folder.id}" th:attr="data-id=${folder.id}" th:each="folder : ${folders}"><span
+                class="glyphicon glyphicon-folder-close"></span> <span
+                class="dossier_name" th:text="${folder.name}"   id="dossier">Dossier n°1</span>
+            <div class="action_dossier"><span
+                    class="delete glyphicon glyphicon-trash"
+                    data-toggle="modal" data-target="#delete"></span><span
+                    class="edit glyphicon glyphicon-pencil"
+                    data-toggle="modal" data-target="#edit"></span></div>
+        </div>
+
+        <input type="hidden" name="dossier_change" value=""
+               id="dossier_change"/>
+
+        <div id="delete" class="modal fade delete_modal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;
+                        </button>
+                        <h4 class="modal-title">Suppression d'un
+                            dossier</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Appuyer sur le bouton "Supprimer" si vous êtes
+                            sûr(e) de vouloir supprimer ce dossier.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-danger delete_dossier"
+                                data-dismiss="modal">Supprimer
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="edit" class="modal fade edit_modal" role="dialog"
+             tabindex="-1">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;
+                        </button>
+                        <h4 class="modal-title">Editer un dossier</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_edit_dossier"
+                              onsubmit="return false;">
+                            <div class="form-group">
+                                <label for="titre">Nouveau nom du
+                                    dossier</label>
+                                <input type="text" class="form-control"
+                                       id="titre"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-success edit_dossier"
+                                data-dismiss="modal">Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="categorie-home" data-toggle="modal"
+             data-target="#add_folder"><span
+                class="glyphicon glyphicon-plus"></span> Ajouter un dossier
+        </div>
+
+        <div id="add_folder" class="modal fade edit_modal" role="dialog"
+             tabindex="-1">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;
+                        </button>
+                        <h4 class="modal-title">Ajouter un dossier</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form_add_dossier"
+                              onsubmit="return false;">
+                            <div class="form-group">
+                                <label for="titre">Nom du dossier</label>
+                                <input type="text" class="form-control"
+                                       id="titre_new"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-success add_dossier"
+                                data-dismiss="modal">Enregistrer
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <button id="notifications_prof" type="button" class="btn btn-primary btn_add_questionnaire2"
+                data-toggle="modal" data-target="#notifications"><span
+                class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+            Notifications <span th:if="${commentaires_non_lus.size() > 0}" th:text="${commentaires_non_lus.size()}" class="badge">10</span></button>
+        <a th:href="'/commentaire/view_all/'+${module_id}" th:if="${type == 'idea'}">
+        <button type="button"
+                class="btn btn-primary btn_add_questionnaire2 get_to_questions"><span
+                class="glyphicon glyphicon-bullhorn"
+                aria-hidden="true"></span> Boite à idées </button>
+        </a>
+        <a th:href="'/home/prof/'+${module_id}" th:if="${type == 'questionnaire'}">
+        <button type="button"
+                class="btn btn-primary btn_add_questionnaire2 get_to_questionnaire"><span
+                class="glyphicon glyphicon-inbox"
+                aria-hidden="true"></span> Questionnaires</button>
+        </a>
+        <button type="button" class="btn btn-primary btn_add_questionnaire2"
+                data-toggle="modal"
+                data-target="#addStudent">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Gestion du module
+        </button>
+    </div>
+
+    <div id="addStudent" class="modal fade edit_modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Gestion du module</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form_gestion_module" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="title_module">Nom du module</label>
+                            <input type="text" class="form-control" id="title_module">
+                        </div>
+                        <button type="button" class="btn btn-success changeNameButton" onclick="changeModuleName();">
+                            <span class="glyphicon glyphicon-pencil"></span> Modifier le nom du module
+                        </button>
+                        <div class="add_student_div">
+                            <div class="form-group">
+                                <label for="number_eleve1">Numéro de l'éleve</label>
+                                <input type="text" class="form-control" id="number_eleve1">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary add_student_button" onclick="addStudentToModule();">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <button type="button" class="btn btn-success add_student_button" onclick="addStudentToModuleSubmit();">
+                            <span class="glyphicon glyphicon-plus"></span> Ajouter ces élèves au module
+                        </button>
+                        <div class="form-group div_remove_student ui-widget">
+                            <label for="student_to_del">Elève à retirer</label>
+                            <input type="text" class="form-control" id="student_to_del">
+                        </div>
+                        <button type="button" class="btn btn-danger remove_student_button" onclick="removeStudentFromModule();">
+                            <span class="glyphicon glyphicon-remove"></span> Enlever du module
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="notifications" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                    <h4 class="modal-title text-primary"><span
+                            class="glyphicon glyphicon-bell"></span> Mes
+                        notifications</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="notifications">
+
+                        <ul class="notification-list" th:if="${commentaires.size() > 0}">
+                            <li th:each="commentaire : ${commentaires}">
+                                <a th:href="'/commentaire/view/' + ${commentaire.id}">
+                                    <div class="media">
+                                        <div class="media-left">
+                                                <img src="https://cdn2.iconfinder.com/data/icons/2-color-line/64/si-duo-message-dot-128.png"
+                                                     class="media-object cat-icon rounded-circle"
+                                                     alt="..."/>
+                                        </div>
+                                        <div class="media-body">
+                                            <ul class="n-user-list">
+                                                <li><img
+                                                        th:src="${commentaire.expediteur.hasPhoto() ? '/files/' + commentaire.expediteur.photo : '/img/photos_profil/default-user-image.png'}"
+                                                        class="avatar rounded"
+                                                        alt="..."/></li>
+                                            </ul>
+                                            <p class="media-heading"><b th:text="${commentaire.expediteur.firstName + ' ' + commentaire.expediteur.lastName}">Cet
+                                                élève</b> a commenté le cours
+                                                "<b th:text="${commentaire.conversation.moduleConcerne.name}">APP Electronique</b>"</p>
+                                        </div>
+                                        <div class="panel panel-default panel_comment">
+                                            <div class="panel-body" th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(commentaire.message),'\n','&lt;br /&gt;'))}">Bonjour, je
+                                                pense qu'ajouter les slides sur
+                                                Moodle serait bénéfique à tous
+                                                pour pouvoir mieux réviser.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <p th:if="${commentaires.size() == 0}">Aucune notiification pour le moment</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="form_ajout_questionnaire" class="modal fade" role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog modal-lg container">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                    <h4 class="modal-title text-primary"><span
+                            class="glyphicon glyphicon glyphicon-plus"></span> Ajout
+                        d'un nouveau questionnaire</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="titre_questionnaire">Titre du questionnaire</label>
+                            <input type="text" class="form-control" id="titre_questionnaire"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="select_template">Choisir un template</label>
+                            <select class="form-control" id="select_template">
+                                <option>Aucun</option>
+                                <option class="template_select" th:each="template : ${templates}" th:value="${template.id}" th:text="${template.nom}">Template 1</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-1">
+                                <div class="checkbox icheck-primary">
+                                    <input id="enable_datepicker" type="checkbox"/>
+                                    <label for="enable_datepicker"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="form-group row date">
+                                    <div class="col-md-5">
+                                        <div class='input-group'
+                                             id='date_debut_questionnaire'>
+                                            <input type='text'
+                                                   class="form-control datepick"
+                                                   placeholder="De"
+                                                   disabled="disabled"/>
+                                            <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <div class='input-group'
+                                             id='date_fin_questionnaire'>
+                                            <input type='text'
+                                                   class="form-control datepick"
+                                                   placeholder="A"
+                                                   disabled="disabled"/>
+                                            <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="questions_questionnaire">
+                            <input type="hidden" id="emoji_change" name="emoji_change" value="1"/>
+                            <div id="all_questions">
+                            <div class="panel panel-primary div_question panel_add" id="form_question_1" data-id="1">
+                                <div class="panel-heading"><strong>Question
+                                    1</strong> <span
+                                        class="glyphicon glyphicon-remove delete_question"
+                                        onclick="deleteQuestion(1);"></span></div>
+
+                                <div class="panel-body">
+                                    <div class="col-md-1"></div>
+
+                                    <div class="col-md-11 panel_form_questionnaire">
+                                        <div class="form-group row">
+                                            <div class="col-md-3 label_question_modal">
+                                                <label for="titre_question">Question</label>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="titre_question"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-3 label_question_modal">
+                                                <label for="titre">Type de
+                                                    question</label>
+                                            </div>
+
+                                            <div class="col-md-9">
+                                                <div class="btn-group btn-group-justified">
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="ouverte"
+                                                                data-question="1">
+                                                            Ouverte
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="selecteur"
+                                                                data-question="1">
+                                                            Selecteur
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="notation"
+                                                                data-question="1">
+                                                            Notation
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="slider"
+                                                                data-question="1">
+                                                            Slider
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="roti"
+                                                                data-question="1">
+                                                            ROTI
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                                class="btn btn-primary type_question"
+                                                                data-type="qcm"
+                                                                data-question="1">
+                                                            QCM
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden"
+                                                       id="type_question_1"
+                                                       name="type_question"
+                                                       value=""/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             id="ouverte_1">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Ouverte</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                Réponse sous forme de commentaire
+                                                libre de la part de l'élève
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             id="selecteur_1">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Selecteur</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="form-group row">
+
+                                                    <div class="col-md-12">
+                                                        <div id="groupe_select-1">
+                                                            <div class="input-group">
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       name="valeur_question"><span
+                                                                    class="input-group-addon remove_addon"
+                                                                    onclick="remove_select_input.call( this );"><span
+                                                                    class="glyphicon glyphicon-remove"></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                                class="btn btn-primary add_question_button"
+                                                                onclick="addSelect(1);">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             id="notation_1">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Notation</strong>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number"
+                                                           class="form-control"
+                                                           name="valeur_question"
+                                                           placeholder="De"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="number"
+                                                           class="form-control"
+                                                           name="valeur_question2"
+                                                           placeholder="A"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             id="slider_1">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>Slider</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="input-group slider_emoji">
+                                                    <div class="col-md-11">
+                                                        <input class="form-control input_emoji"
+                                                               type="range"
+                                                               value="50" max="100"
+                                                               min="0" step="5"
+                                                               data-question="1"/>
+                                                    </div>
+                                                    <div class="col-md-1 smiley_slider">
+                                                        <i class="popover-emoji em em-expressionless"
+                                                           id="emoji-1"
+                                                           data-id="1"
+                                                           data-toggle="popover"
+                                                           data-html="true"
+                                                           data-placement="bottom"></i>
+                                                        <input type="hidden"
+                                                               name="tres_mauvais_1"
+                                                               value="em-tired_face"/>
+                                                        <input type="hidden"
+                                                               name="mauvais_1"
+                                                               value="em-disappointed"/>
+                                                        <input type="hidden"
+                                                               name="mitige_1"
+                                                               value="em-expressionless"/>
+                                                        <input type="hidden"
+                                                               name="heureux_1"
+                                                               value="em-smiley"/>
+                                                        <input type="hidden"
+                                                               name="tres_heureux_1"
+                                                               value="em-heart_eyes"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             id="roti_1">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>ROTI</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                Réponse où l'élève pourra choisir
+                                                une note entre 1 et 5.
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row valeur_question"
+                                             id="qcm_1">
+                                            <div class="col-md-3 label_question_modal">
+                                                <strong>QCM</strong>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <div class="form-group row">
+
+                                                    <div class="col-md-12">
+                                                        <div id="groupe_qcm-1">
+                                                            <div class="input-group">
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       name="valeur_question"><span
+                                                                    class="input-group-addon remove_addon"
+                                                                    onclick="remove_select_input.call( this );"><span
+                                                                    class="glyphicon glyphicon-remove"></span></span>
+                                                                    <span
+                                                                        class="input-group-addon istrue_addon"
+                                                                        onclick="is_true.call( this );"><span
+                                                                        class="glyphicon glyphicon-ok"></span></span>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button"
+                                                                class="btn btn-primary add_question_button"
+                                                                onclick="addQCM(1);">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-primary"
+                                        data-question="2"
+                                        onclick="addQuestion.call( this );">Ajouter
+                                    une question
+                                </button>
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="checkbox icheck-primary checkbox_template">
+                                    <input id="anonymat" type="checkbox"
+                                           name="anonymat"/>
+                                    <label for="anonymat">Anonymat des
+                                        réponses</label>
+                                </div>
+                                <div class="checkbox icheck-primary checkbox_template">
+                                    <input id="template" type="checkbox"
+                                           name="template"/>
+                                    <label for="template">Enregistrer ce
+                                        template</label>
+                                    <div class="input-group template_name"
+                                         id="template_name">
+                                        <input type="text" class="form-control"
+                                               name="nom_template"
+                                               placeholder="Nom du template"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" th:action="@{/questionnaire/add}"
+                            id="questionnaire_submit">Publier
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head (title)">
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"
+          th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"
+          th:href="@{/css/jqcloud.css}"/>
+    <link href="icheck-bootstrap.css" type="text/css" rel="stylesheet"
+          th:href="@{/css/icheck-bootstrap.css}"/>
+    <link rel="stylesheet"
+          href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css"/>
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"/>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var session = {
+            firstname: /*[[${session.firstname}]]*/ "John",
+            lastname: /*[[${session.lastname}]]*/ "Doe",
+            username: /*[[${session.username}]]*/ "username"
+        }
+        /*]]>*/
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="    https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+    <script type="text/javascript" src="functions.js" th:src="@{/js/jqcloud.js}"></script>
+    <script type="text/javascript" src="functions.js" th:src="@{/js/functions.js}"></script>
+    <script type="text/javascript" src="functions.js" th:src="@{/js/snake.js}"></script>
+</head>
+</html>

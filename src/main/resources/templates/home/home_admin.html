@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Accueil administration')"></head>
+
+<body>
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<div class="container-fluid colonnes-home">
+
+    <div th:replace="fragments/admin_column :: admin_column (type='questionnaire')"></div>
+
+    <div class="col-md-10 colonne-droite">
+
+        <div class="header_home_prof">
+            <div class="header_questionnaire_mobile">
+                <div class="table_questionnaire head_questionnaire"
+                     id="first_row_home">
+                    <div class="btn-group btn-head add_hover" role="group">
+                        <div class="btn_head_table_mobile">
+                            <div class="checkbox icheck-primary btn_head_table_text">
+                                <input id="check_all" class="check_all"
+                                       type="checkbox"/>
+                                <label for="check_all"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-group btn-head-mobile add_hover delete_selection_admin"
+                         role="group">
+                        <div class="btn_head_table_mobile">
+                            <div class="btn_head_table_text">
+                                <span class="glyphicon glyphicon-trash"
+                                      aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table_questionnaire head_questionnaire header_questionnaire"
+                 id="first_row_home">
+
+                <div class="btn-group btn-head" role="group">
+                    <button type="button" class="btn btn_head_table">
+                        <div class="checkbox icheck-primary btn_head_table_text">
+                            <input id="check_all2" class="check_all"
+                                   type="checkbox"/>
+                            <label for="check_all2">Tout sélectionner</label>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="btn-group btn-head" role="group">
+                    <button type="button"
+                            class="btn btn_head_table add_hover delete_selection_admin">
+                        <div class="btn_head_table_text">
+                            <span class="glyphicon glyphicon-trash"
+                                  aria-hidden="true"></span>
+                            <span class="btn_head_additional_text">Supprimer</span>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="scrollableDiv_home_prof">
+            <table class="table_questionnaire table_questionnaire_body">
+
+                <tr th:if="${questionnaire.type != 'live'}" th:each="questionnaire : ${questionnaires}" th:class="'row_questionnaire ligne_questionnaire add_hover'"
+                    th:id="'questionnaire_' +${questionnaire.id}" th:attr="data-id=${questionnaire.id}">
+
+                    <td class="petit-td text_center">
+                        <input type="checkbox" class="checkbox_questionnaire"
+                               th:attr="data-numero=${questionnaire.id}"/>
+                    </td>
+
+                    <td class="view_questionnaire" th:attr="data-href='/questionnaire/view/'+${questionnaire.id}">
+                        <span th:text="${questionnaire.name}"></span>
+                    </td>
+
+                    <td class="view_questionnaire" th:if="${!#lists.isEmpty(questionnaire.questions) && questionnaire.type == 'questionnaire'}" th:attr="data-href='/questionnaire/view/'+${questionnaire.id}">
+                        <span th:text="${questionnaire.questions[0].answers.size()} + ' réponse' + ${questionnaire.questions[0].answers.size() > 1 ? 's' : ''}">Aucune réponse</span>
+                    </td>
+
+                    <td class="paging_row_home text_center view_questionnaire" th:attr="data-href='/questionnaire/view/'+${questionnaire.id}">
+                        <span th:attr="data-time=${#calendars.format(questionnaire.date, 'yyyy-MM-dd HH:mm:ss')}" th:text="${#calendars.format(questionnaire.date, 'dd MMM yyyy HH:mm')}"></span>
+                    </td>
+                    </a>
+                </tr>
+
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

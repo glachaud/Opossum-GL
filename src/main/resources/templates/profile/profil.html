@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Votre profil')"></head>
+
+<body>
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<div class="container-fluid container_profil">
+    <div class="row">
+        <div class="col-md-12 text_center profil_main">
+            <div class="card">
+                <img class="avatar img-circle"
+                     th:src="${user.hasPhoto() ? '/files/' + user.photo : '/img/photos_profil/default-user-image.png'}"
+                     alt="Votre image de profil">
+                <h4 class="card_title" th:text="${user.firstName} + ' ' + ${user.lastName}" th:unless="${user == null}">Phillipe Austersweig</h4>
+                <p class="card_subtext" th:text="${user.role == 'teacher' ? 'Enseignant' : user.role == 'admin' ? 'Administration' : user.role == 'student' ? 'Eleve' : ''}"></p>
+                <p class="card_subtext edit_picture"><span class="glyphicon glyphicon-pencil"></span> Changer ma photo de profil</p>
+                <form id="upload-file-form">
+                <input type="file" name="uploadfile" id="changePhotoProfil" style="display:none;">
+                </form>
+            </div>
+
+            <div class="box_profil current" id="cours">
+                <div class="panel panel-default panel2">
+                    <div class="panel-heading heading_profil"><span
+                            class="glyphicon glyphicon-education"
+                            aria-hidden="true"></span> Mes cours
+                    </div>
+                    <div class="panel-body pane
+
+
+
+
+                    l_scroll_profil">
+
+                        <input type="hidden" name="cours_note" id="cours_note"
+                               value=""/>
+                        <!-- Enregistre l'id du cours qui est en train d'être noté -->
+
+                        <div th:each="module : ${modules}" class="panel panel-default panel_cours">
+                            <div th:text="${module.name}" class="panel-heading">Nom du module
+                            </div>
+                            <div class="panel-body">
+                                <a th:if="${user.role == 'teacher' || user.role == 'student'}" th:href="${user.role == 'teacher' ? '/home/prof/' + module.id : '/home/eleve/'+ module.id}" type="button" class="btn btn-primary">
+                                    Page du module
+                                </a>
+                                <button th:if="${user.role == 'teacher'}" type="button"
+                                        class="btn btn-success btn-note"
+                                        data-toggle="modal"
+                                        data-target="#form_notation"
+                                        th:id="${module.id}">Noter
+                                </button>
+                                <button th:if="${user.role != 'teacher'}" th:attr="data-cours=${module.id}" class="btn btn_eleve get_retour_cours" data-toggle="modal" data-target="#retour_modal">
+                                    <span class="glyphicon glyphicon-bullhorn"></span> Retours sur la classe
+                                </button>
+                            </div>
+                        </div>
+
+                        <div th:if="${user.role != 'teacher'}" id="retour_modal" data-cours="1" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title text-blue"><span
+                                                class="glyphicon glyphicon-pencil" ></span>
+                                            Commentaire de l'enseignant</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <h5 class="text-blue">Commentaire :</h5>
+                                                <p id="commentaire_prof_cours"> L'enseignant n'a pas encore fait de retours sur ce cours </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h5 class="text-blue">Note du cour : </h5><span id="note_module">5</span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div th:if="${user.role == 'teacher'}" id="form_notation" class="modal fade"
+                             role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close"
+                                                data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title text-blue" id="titre_module_note"><span
+                                                class="glyphicon glyphicon-pencil"></span>
+                                            Commenter la classe : Algorithmie
+                                            avancée</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="comment_1">Votre
+                                                    commentaire</label>
+                                                <textarea class="form-control"
+                                                          rows="5"
+                                                          id="comment_1"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group row row-eq-height">
+                                                    <div class="col-xs-11">
+                                                        <label for="notation_1">Votre
+                                                            note pour cette
+                                                            classe</label>
+                                                        <input id="notation_1"
+                                                               class="form-control commentaire_classe"
+                                                               type="range"
+                                                               value="5"
+                                                               max="10" min="0"
+                                                               step="1">
+                                                    </div>
+                                                    <div class="col-xs-1 notation_div">
+                                                        <span class="notation">5</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-success"
+                                                data-dismiss="modal"
+                                                id="noter-cour">Envoyer
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

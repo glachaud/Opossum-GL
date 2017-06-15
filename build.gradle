@@ -1,0 +1,69 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
+
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+ war {
+    baseName = 'isepreact'
+    version = '1.0'
+}
+
+// jar {
+//    baseName = 'isepreact'
+//    version = '1.0'
+//}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    //war
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
+    // Spring boot configuration processor
+
+    compile "org.springframework.boot:spring-boot-configuration-processor"
+
+    // JSON library
+    compile 'org.json:json:20160212'
+
+    // Spring boot security
+    compile("org.springframework.boot:spring-boot-starter-security")
+
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    // Thymeleaf dependency
+
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.0.RELEASE")
+    compile("io.github.jpenren:thymeleaf-spring-data-dialect:3.1.1")
+
+    // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Use MySQL Connector-J
+    compile 'mysql:mysql-connector-java'
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+ext["thymeleaf.version"] = "3.0.2.RELEASE"
+ext["thymeleaf-layout-dialect.version"] = "2.0.1"
+

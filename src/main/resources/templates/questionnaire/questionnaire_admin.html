@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Questionnaire')"></head>
+
+<body>
+
+<!--  HEADER  -->
+
+<nav class="navbar navbar-default header">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button id="liste-responsive" type="button"
+                    class="responsive_button">
+                <span class="glyphicon glyphicon glyphicon-backward"></span>
+            </button>
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Activer la navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">ISEPReact</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               placeholder="Rechercher...">
+			      <span class="input-group-btn">
+			      	<button class="btn btn-default" type="button"><span
+                            class="glyphicon glyphicon-search"></span></button>
+		      	  </span>
+                    </div><!-- /input-group -->
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">Module<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Module 1</a></li>
+                        <li><a href="#">Module 2</a></li>
+                        <li><a href="#">Module 3</a></li>
+                        <li><a href="#">Module 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Mon profil</a></li>
+                <li><a href="#">Se déconnecter</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!-- FIN DU HEADER -->
+
+<div class="container-fluid colonnes-home">
+    <div class="col-md-2 text_center colonne-gauche" id="colonne-gauche">
+        <div class="scrollableDiv">
+
+            <div class="title_div blue">Catégories</div>
+
+            <div class="categorie-home current_categorie"><span
+                    class="glyphicon glyphicon-folder-open"></span> <span
+                    class="dossier_name">Les questionnaires</span></div>
+            <div class="categorie-home"><span
+                    class="glyphicon glyphicon-folder-close"></span> <span
+                    class="dossier_name">Les alertes</span></div>
+            <div class="categorie-home"><span
+                    class="glyphicon glyphicon-folder-close"></span> <span
+                    class="dossier_name">Les notes de classes</span></div>
+
+
+            <button type="button" class="btn btn-primary btn_add_questionnaire2"
+                    data-toggle="modal" data-target="#notifications"><span
+                    class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                Notifications <span class="badge">10</span></button>
+        </div>
+
+        <div id="notifications" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-primary"><span
+                                class="glyphicon glyphicon-bell"></span> Mes
+                            notifications</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="notifications">
+                            <ul class="notification-list">
+                                <li>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img src="https://cdn4.iconfinder.com/data/icons/mayssam/512/heart-128.png"
+                                                     class="media-object cat-icon rounded-circle"
+                                                     alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <ul class="n-user-list">
+                                                <li><a href="#"><img
+                                                        src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png"
+                                                        class="avatar rounded"
+                                                        alt="..."></a></li>
+                                            </ul>
+                                            <p class="media-heading"><b>Ce
+                                                professeur</b> a noté la classe
+                                                du cours "<b>Mathématiques</b>"
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <ul class="notification-list">
+                                <li>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/caution-128.png"
+                                                     class="media-object cat-icon rounded-circle"
+                                                     alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <ul class="n-user-list">
+                                                <li><a href="#"><img
+                                                        src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png"
+                                                        class="avatar rounded"
+                                                        alt="..."></a></li>
+                                            </ul>
+                                            <p class="media-heading"><b>Ce
+                                                professeur</b> a signalé ce
+                                                commentaire sur le cours "<b>APP
+                                                    Electronique</b>"</p>
+                                        </div>
+                                        <div class="panel panel-default panel_comment">
+                                            <div class="panel-body">Merci pour
+                                                ton commentaire ! Je pense que
+                                                c'est une très bonne idée et
+                                                j'en prends note.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-10 colonne-droite no-padding">
+
+        <div class="scrollableDiv">
+
+            <h2 class="text-center">Titre du questionnaire</h2>
+
+            <div class="panel panel-primary panel-question">
+                <div class="panel-heading"><strong>Première question</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">25 réponses</span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Slider</span>
+                    </div>
+                    <div class="col-md-8">
+                        <span class="glyphicon glyphicon-tasks"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Réponse moyenne : <i
+                            class="em em-smiley"></i></span>
+                    </div>
+
+                    <div class="col-md-12 show_more_button">
+                        <p>
+                            <button class="btn btn-primary" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#question1"
+                                    aria-expanded="false"
+                                    aria-controls="question1">
+                                Afficher plus de détails
+                            </button>
+                        </p>
+                        <div class="collapse" id="question1">
+                            <div class="well">
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Elève</th>
+                                        <th>Réponse</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Philippe Vienparici</td>
+                                        <td><i class="em em-smiley"></i> (75%)
+                                        </td>
+                                        <td>18 janvier à 15H30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Victor Austersweig</td>
+                                        <td><i class="em em-disappointed"></i>
+                                            (28%)
+                                        </td>
+                                        <td>18 janvier à 15H29</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hill Larent</td>
+                                        <td><i class="em em-expressionless"></i>
+                                            (48%)
+                                        </td>
+                                        <td>19 janvier à 01H05</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-primary panel-question">
+                <div class="panel-heading"><strong>Deuxième question</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">35 réponses</span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Ouverte</span>
+                    </div>
+
+                    <div class="col-md-12 show_more_button">
+                        <p>
+                            <button class="btn btn-primary" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#question2"
+                                    aria-expanded="false"
+                                    aria-controls="question2">
+                                Afficher plus de détails
+                            </button>
+                        </p>
+                        <div class="collapse" id="question2">
+                            <div class="well">
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Elève</th>
+                                        <th>Réponse</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-md-2">Philippe
+                                            Vienparici
+                                        </td>
+                                        <td class="col-md-8">
+                                            Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit. Donec
+                                            pulvinar scelerisque risus, in
+                                            hendrerit tortor semper quis. Ut
+                                            venenatis sed eros sed convallis.
+                                            Integer et fermentum lacus. Proin
+                                            nec condimentum nisi, et convallis
+                                            neque. Fusce sagittis tortor vitae
+                                            neque condimentum accumsan. Aliquam
+                                            consequat orci maximus erat
+                                            tincidunt imperdiet. Nulla elementum
+                                            bibendum mi a sollicitudin.
+                                            Pellentesque eget ipsum ut massa
+                                            consectetur interdum. Phasellus
+                                            mauris turpis, varius a odio ac,
+                                            molestie dictum dui. Sed varius erat
+                                            a massa ullamcorper rutrum. Nulla
+                                            facilisi. Quisque a enim dignissim,
+                                            pellentesque orci ornare, hendrerit
+                                            augue. Integer lacinia massa dui.
+                                            Nullam eu cursus enim.
+                                            <p class="like_answer">Avez-vous
+                                                aimé cette réponse ? <span
+                                                        class="glyphicon glyphicon-thumbs-up"></span>
+                                            </p>
+                                        </td>
+                                        <td class="col-md-2">18 janvier à
+                                            15H30
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Victor
+                                            Austersweig
+                                        </td>
+                                        <td class="col-md-8">
+                                            Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit. Donec
+                                            pulvinar scelerisque risus, in
+                                            hendrerit tortor semper quis. Ut
+                                            venenatis sed eros sed convallis.
+                                            Integer et fermentum lacus. Proin
+                                            nec condimentum nisi, et convallis
+                                            neque. Fusce sagittis tortor vitae
+                                            neque condimentum accumsan. Aliquam
+                                            consequat orci maximus erat
+                                            tincidunt imperdiet. Nulla elementum
+                                            bibendum mi a sollicitudin.
+                                            Pellentesque eget ipsum ut massa
+                                            consectetur interdum. Phasellus
+                                            mauris turpis, varius a odio ac,
+                                            molestie dictum dui. Sed varius erat
+                                            a massa ullamcorper rutrum. Nulla
+                                            facilisi. Quisque a enim dignissim,
+                                            pellentesque orci ornare, hendrerit
+                                            augue. Integer lacinia massa dui.
+                                            Nullam eu cursus enim.
+                                            <p class="like_answer">Avez-vous
+                                                aimé cette réponse ? <span
+                                                        class="glyphicon glyphicon-thumbs-up"></span>
+                                            </p>
+                                        </td>
+                                        <td class="col-md-2">18 janvier à
+                                            15H29
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Hill Larent</td>
+                                        <td class="col-md-8">
+                                            Je sais pas quoi dire !
+                                            <p class="like_answer">Avez-vous
+                                                aimé cette réponse ? <span
+                                                        class="glyphicon glyphicon-thumbs-up"></span>
+                                            </p>
+                                        </td>
+                                        <td class="col-md-2">19 janvier à
+                                            01H05
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary panel-question">
+                <div class="panel-heading"><strong>Troisième question</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">30 réponses</span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Selecteur</span>
+                    </div>
+                    <div class="col-md-8">
+                        <span class="glyphicon glyphicon-tasks"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Réponse la plus donnée : Réponse 2</span>
+                    </div>
+
+                    <div class="col-md-12 show_more_button">
+                        <p>
+                            <button class="btn btn-primary" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#question3"
+                                    aria-expanded="false"
+                                    aria-controls="question3">
+                                Afficher plus de détails
+                            </button>
+                        </p>
+                        <div class="collapse" id="question3">
+                            <div class="well">
+
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                                <div class="col-md-1"></div>
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Elève</th>
+                                        <th>Réponse</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Philippe Vienparici</td>
+                                        <td>
+                                            Réponse 2
+                                        </td>
+                                        <td>18 janvier à 15H30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Victor Austersweig</td>
+                                        <td>
+                                            Réponse 5
+                                        </td>
+                                        <td>18 janvier à 15H29</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hill Larent</td>
+                                        <td>
+                                            Réponse 1
+                                        </td>
+                                        <td>19 janvier à 01H05</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary panel-question">
+                <div class="panel-heading"><strong>Quatrième question</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">25 réponses</span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Notation</span>
+                    </div>
+                    <div class="col-md-8">
+                        <span class="glyphicon glyphicon-tasks"
+                              aria-hidden="true"></span><span
+                            class="info-questionnaire">Moyenne : 16.5</span>
+                    </div>
+
+                    <div class="col-md-12 show_more_button">
+                        <p>
+                            <button class="btn btn-primary" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#question4"
+                                    aria-expanded="false"
+                                    aria-controls="question4">
+                                Afficher plus de détails
+                            </button>
+                        </p>
+                        <div class="collapse" id="question4">
+                            <div class="well">
+
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+                                <div class="col-md-1"></div>
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Elève</th>
+                                        <th>Réponse</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Philippe Vienparici</td>
+                                        <td>
+                                            18/20
+                                        </td>
+                                        <td>18 janvier à 15H30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Victor Austersweig</td>
+                                        <td>
+                                            15/20
+                                        </td>
+                                        <td>18 janvier à 15H29</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hill Larent</td>
+                                        <td>
+                                            14/20
+                                        </td>
+                                        <td>19 janvier à 01H05</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="form_ajout_questionnaire" class="modal fade" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog modal-lg container">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-primary"><span
+                        class="glyphicon glyphicon glyphicon-plus"></span> Ajout
+                    d'un nouveau questionnaire</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="titre">Titre du questionnaire</label>
+                        <input type="text" class="form-control" id="titre">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="select_template">Choisir un template</label>
+                        <select class="form-control" id="select_template">
+                            <option>Aucun</option>
+                            <option>Template 1</option>
+                            <option>Template 2</option>
+                            <option>Template 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1">
+                            <div class="checkbox icheck-primary">
+                                <input id="enable_datepicker" type="checkbox"/>
+                                <label for="enable_datepicker"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group row">
+                                <div class="col-md-5">
+                                    <div class='input-group date'
+                                         id='date_debut_questionnaire'>
+                                        <input type='text'
+                                               class="form-control datepick"
+                                               placeholder="De" disabled/>
+		                    <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class='input-group'
+                                         id='date_fin_questionnaire'>
+                                        <input type='text'
+                                               class="form-control datepick"
+                                               placeholder="A" disabled/>
+		                    <span class="input-group-addon">
+		                        <span class="glyphicon glyphicon-calendar"></span>
+		                    </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="questions_questionnaire">
+                        <div class="panel panel-primary" id="form_question_1">
+                            <div class="panel-heading"><strong>Question
+                                1</strong> <span
+                                    class="glyphicon glyphicon-remove delete_question"
+                                    onclick="deleteQuestion(1);"></span></div>
+
+                            <div class="panel-body">
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-11 panel_form_questionnaire">
+                                    <div class="form-group row">
+                                        <div class="col-md-3 label_question_modal">
+                                            <label for="titre">Question</label>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="titre">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-md-3 label_question_modal">
+                                            <label for="titre">Type de
+                                                question</label>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <div class="btn-group btn-group-justified">
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-primary type_question"
+                                                            data-type="ouverte"
+                                                            data-question="1">
+                                                        Ouverte
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-primary type_question"
+                                                            data-type="selecteur"
+                                                            data-question="1">
+                                                        Selecteur
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-primary type_question"
+                                                            data-type="notation"
+                                                            data-question="1">
+                                                        Notation
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-primary type_question"
+                                                            data-type="slider"
+                                                            data-question="1">
+                                                        Slider
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                            class="btn btn-primary type_question"
+                                                            data-type="roti"
+                                                            data-question="1">
+                                                        ROTI
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden"
+                                                   id="type_question_1"
+                                                   name="type_question"
+                                                   value=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row valeur_question"
+                                         id="ouverte_1">
+                                        <div class="col-md-3 label_question_modal">
+                                            <strong>Ouverte</strong>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            Réponse sous forme de commentaire
+                                            libre de la part de l'élève
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row valeur_question"
+                                         id="selecteur_1">
+                                        <div class="col-md-3 label_question_modal">
+                                            <strong>Selecteur</strong>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <div class="form-group row">
+
+                                                <div class="col-md-12">
+                                                    <div id="groupe_select-1">
+                                                        <div class="input-group">
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   name="valeur_question"><span
+                                                                class="input-group-addon remove_addon"
+                                                                onclick="remove_select_input.call( this );"><span
+                                                                class="glyphicon glyphicon-remove"></span></span>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button"
+                                                            class="btn btn-primary add_question_button"
+                                                            onclick="addSelect(1);">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row valeur_question"
+                                         id="notation_1">
+                                        <div class="col-md-3 label_question_modal">
+                                            <strong>Notation</strong>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="valeur_question"
+                                                       placeholder="De">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <input type="number"
+                                                       class="form-control"
+                                                       name="valeur_question2"
+                                                       placeholder="A">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row valeur_question"
+                                         id="slider_1">
+                                        <div class="col-md-3 label_question_modal">
+                                            <strong>Slider</strong>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <div class="input-group slider_emoji">
+                                                <div class="col-md-11">
+                                                    <input class="form-control input_emoji"
+                                                           type="range"
+                                                           value="50" max="100"
+                                                           min="0" step="5"
+                                                           data-question="1">
+                                                </div>
+                                                <div class="col-md-1 smiley_slider">
+                                                    <i class="popover-emoji em em-expressionless"
+                                                       id="emoji-1"
+                                                       data-toggle="popover"
+                                                       data-html="true"
+                                                       data-placement="bottom"></i>
+                                                    <input type="hidden"
+                                                           name="tres_mauvais_1"
+                                                           value="em-tired_face"/>
+                                                    <input type="hidden"
+                                                           name="mauvais_1"
+                                                           value="em-disappointed"/>
+                                                    <input type="hidden"
+                                                           name="mitige_1"
+                                                           value="em-expressionless"/>
+                                                    <input type="hidden"
+                                                           name="heureux_1"
+                                                           value="em-smiley"/>
+                                                    <input type="hidden"
+                                                           name="tres_heureux_1"
+                                                           value="em-heart_eyes"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row valeur_question"
+                                         id="roti_1">
+                                        <div class="col-md-3 label_question_modal">
+                                            <strong>ROTI</strong>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            Réponse où l'élève pourra choisir
+                                            une note entre 0 et 5.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary"
+                                    data-question="2"
+                                    onclick="addQuestion.call( this );">Ajouter
+                                une question
+                            </button>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="checkbox icheck-primary checkbox_template">
+                                <input id="anonymat" type="checkbox"
+                                       name="anonymat"/>
+                                <label for="anonymat">Anonymat des
+                                    réponses</label>
+                            </div>
+                            <div class="checkbox icheck-primary checkbox_template">
+                                <input id="template" type="checkbox"
+                                       name="template"/>
+                                <label for="template">Enregistrer ce
+                                    template</label>
+                                <div class="input-group template_name"
+                                     id="template_name">
+                                    <input type="text" class="form-control"
+                                           name="nom_template"
+                                           placeholder="Nom du template">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                        data-dismiss="modal">Publier
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Questionnaire')"></head>
+
+<body>
+
+<!--  HEADER  -->
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<!-- FIN DU HEADER -->
+
+<div class="container-fluid colonnes-home">
+    <div class="col-md-4 text_center colonne-gauche" id="colonne-gauche">
+        <div class="scrollableDiv liveDiv">
+
+            <input type="hidden" id="id_questionnaire" th:value="${questionnaire.id}"/>
+
+            <div class="panel panel-primary add_element_live_div commentLivePanel">
+                <div class="panel-heading"><span class="glyphicon glyphicon-pencil"></span>Envoyer un commentaire</div>
+                <div class="panel-body">
+
+                    <form>
+
+                        <div class="col-md-12">
+                            <textarea id="instruction_textarea" rows="5"></textarea>
+                        </div>
+                    </form>
+
+                    <button class="btn btn-success" id="addCommentLive"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+                </div>
+            </div>
+
+            <div class="allAnswerModals">
+            <div class="panel panel-primary add_element_live_div" th:each="question : ${#lists.sort(questionnaire.questions)}" th:id="'panel'+${question.id}" th:if="${question.type != 'instruction'}" th:style="${question.hasAlreadyAnswered(user) ? 'display:none;' : ''}">
+                <div class="panel-heading"><span class="glyphicon glyphicon-question-sign"></span><span th:text="${question.question}">Comment trouvez-vous ce cours ?</span></div>
+                <div class="panel-body">
+
+                    <form onsubmit="$(this).parent().find('.btn-live-eleve').click(); return false;">
+
+                        <div th:switch="${question.type}">
+
+                        <div class="col-md-12" th:case="'en_un_mot'">
+                            <div class="form-group">
+                                <input type="text" placeholder="En un mot..." class="form-control" name="reponse" th:attr="data-question=${question.id}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" th:case="'ouverte'">
+                                            <textarea class="form-control" rows="5"
+                                                      th:id="${question.id}" th:attr="data-question=${question.id}"></textarea>
+                        </div>
+                        <div class="col-md-12" th:case="'slider'">
+                            <div class="input-group slider_emoji">
+                                <div class="col-md-11">
+                                    <input class="form-control input_emoji"
+                                           type="range" value="50" max="100"
+                                           min="0" step="5"
+                                           th:attr="data-question=${question.id}">
+                                </div>
+                                <div class="col-md-1 smiley_slider">
+                                    <i th:class="'em '+${question.getEmojisInArray()[2]}"
+                                       th:id="'emoji-'+${question.id}" data-toggle="popover"
+                                       data-html="true"
+                                       data-placement="bottom"></i>
+                                    <input type="hidden"
+                                           th:name="'tres_mauvais_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray()[0]}"/>
+                                    <input type="hidden" th:name="'mauvais_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray()[1]}"/>
+                                    <input type="hidden" th:name="'mitige_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray()[2]}"/>
+                                    <input type="hidden" th:name="'heureux_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray()[3]}"/>
+                                    <input type="hidden"
+                                           th:name="'tres_heureux_'+${question.id}"
+                                           th:attr="value=${question.getEmojisInArray()[4]}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" th:case="'notation'">
+                            <span class="infos_sup" th:text="'(Note entre ' + ${question.min_grade} + ' et ' + ${question.max_grade} + ')'"></span>
+                            <input type="hidden" name="max" th:value="${question.max_grade}" th:id="'max'+${question.id}"/>
+                            <input type="hidden" name="min" th:value="${question.min_grade}" th:id="'min'+${question.id}"/>
+                            <input th:id="'value'+${question.id}" class="form-control" type="number"
+                                   th:attr="data-question=${question.id}" th:value="${#numbers.formatDecimal((question.max_grade+question.min_grade)/2, 0, 0)}" th:max="${question.max_grade}" th:min="${question.min_grade}">
+                        </div>
+                        <div class="col-md-12 align_left" th:case="'roti'">
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'1'" th:attr="data-question=${question.id}" type="radio" name="roti" value="1"/>
+                                <label th:for="${question.id}+'1'">1</label>
+                                <span>Je n'ai rien gagné et rien appris, j'ai vraiment perdu mon temps !</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'2'" th:attr="data-question=${question.id}" type="radio" name="roti" value="2"/>
+                                <label th:for="${question.id}+'2'">2</label>
+                                <span>Utile, mais ça ne valait pas le temps qu'on y a passé.</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'3'" th:attr="data-question=${question.id}" type="radio" name="roti" value="3"/>
+                                <label th:for="${question.id}+'3'">3</label>
+                                <span>Dans la moyenne... Correspondait à mes attentes.</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'4'" th:attr="data-question=${question.id}" type="radio" name="roti" value="4"/>
+                                <label th:for="${question.id}+'4'">4</label>
+                                <span>Bien ! J'ai appris plus que je ne l'espérais pour le temps qu'on y a passé.</span>
+                            </div>
+                            <div class="radio radio_roti icheck-primary">
+                                <input th:id="${question.id}+'5'" th:attr="data-question=${question.id}" type="radio" name="roti" value="5"/>
+                                <label th:for="${question.id}+'5'">5</label>
+                                <span>Excellent ! Cela valait bien plus que le temps qu'on y a passé !</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12" th:case="'selecteur'">
+                            <select class="form-control" th:id="'answer-select'+${question.id}" th:attr="data-question=${question.id}">
+                                <option th:each="selecteur : ${question.getSelectorsInArray()}" th:value="${selecteur}" th:text="${selecteur}">0</option>
+                            </select>
+                        </div>
+                        <div th:case="'qcm'" class="align_left col-md-12" >
+                            <div class="checkbox icheck-primary" th:each="qcm, iterStat : ${question.getQcmsInArray()}">
+                                <input th:id="'qcm'+${iterStat.index}+${question.id}" th:attr="data-question=${question.id}" type="checkbox" name="qcm" th:value="${qcm}"/>
+                                <label th:text="${qcm}" th:for="'qcm'+${iterStat.index}+${question.id}">Option 1</label>
+                            </div>
+                        </div>
+
+                            </div>
+                        </form>
+                    <button class="btn btn-success btn-live-eleve" th:attr="data-question=${question.id}, data-type=${question.type}"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+                </div>
+            </div>
+            </div>
+
+            <div class="allCommentsModals">
+                <div th:each="commentaire : ${commentaires}" class="panel panel-default panel_live_comment">
+                    <div class="panel-heading date-comment" th:attr="data-time=${#calendars.format(questionnaire.date,commentaire.date)}" th:text="${#calendars.format(questionnaire.date,commentaire.date)}">Il y a 10 minutes</div>
+                    <div class="panel-body" th:text="${commentaire.message}">Bonjour, comment  allez vous ?</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-8 colonne-droite no-padding">
+
+        <div class="scrollableDiv">
+
+            <h2 class="text-center" th:text="${questionnaire.name}">Titre du questionnaire</h2>
+
+            <div id="elements_live">
+
+                <div th:each="question : ${#lists.sort(questionnaire.questions)}" th:if="${question.hasAlreadyAnswered(user)}" class="panel panel-primary panel-question" th:attr="data-id=${question.getId()}">
+                    <div class="panel-heading" th:text="${question.question}"><strong>Première question</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-2" th:if="${question.type != 'instruction'}">
+                        <span class="glyphicon glyphicon-signal"
+                              aria-hidden="true"></span><span
+                                class="info-questionnaire"><span class="nbAnswer" th:text="${question.answers.size()}">25</span> réponses</span>
+                        </div>
+                        <div class="col-md-2">
+                        <span class="glyphicon glyphicon-tags"
+                              aria-hidden="true"></span><span
+                                class="info-questionnaire" th:text="${question.type == 'en_un_mot' ? 'En un mot' : #strings.capitalize(question.type)}">Slider</span>
+                        </div>
+                        <div th:switch="${question.type}" class="col-md-8">
+                            <span th:case="'ouverte'"></span>
+                        <span th:case="'slider'" ><span class="glyphicon glyphicon-tasks"
+                                                        aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse moyenne : <i class="resultAnswer" th:class="'em '+${question.getAvgAnswer()}"></i></span></span>
+                        <span th:case="'selecteur'" ><span class="glyphicon glyphicon-tasks"
+                                                           aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse la plus donnée : <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="'qcm'" ><span class="glyphicon glyphicon-tasks"
+                                                     aria-hidden="true"></span><span
+                                class="info-questionnaire"><span th:text="${question.isQcmWithRightAnswers() ? 'Nombre de bonnes réponses :' : 'Réponse la plus donnée :'}"></span> <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                            <span th:case="'instruction'" ></span>
+                        <span th:case="'en_un_mot'" ><span class="glyphicon glyphicon-tasks"
+                                                           aria-hidden="true"></span><span
+                                class="info-questionnaire">Mot le plus donné : <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        <span th:case="*" ><span class="glyphicon glyphicon-tasks"
+                                                 aria-hidden="true"></span><span
+                                class="info-questionnaire">Réponse moyenne : <span class="resultAnswer" th:text="${question.getAvgAnswer()}"></span></span></span>
+                        </div>
+
+                        <div class="col-md-12 show_more_button">
+
+                            <div th:id="'question'+${question.id}">
+                                <div th:switch="${question.type}">
+
+                                    <div th:case="'slider'">
+
+                                        <div class="qcm_answers" th:attr="data-id=${question.getId()}">
+                                            <div class='emoji_div' th:each="emoji : ${question.getEmojisInArray()}">
+                                                <span class="qcm_answer_title"><i th:class="'em ' + ${emoji}"></i></span>
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped active" role="progressbar" th:attr="aria-valuenow=${question.getPourcentageForThisEmoji(emoji)}"
+                                                         aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${question.getPourcentageForThisEmoji(emoji)}+'%'" th:text="${question.getPourcentageForThisEmoji(emoji)} + ' % (' + ${question.getNbAnswerForThisEmoji(emoji)} + ')'">
+                                                        40%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div th:case="'en_un_mot'">
+
+                                        <div class="wordCloud" th:attr="data-question=${question.id}"></div>
+
+                                    </div>
+
+                                    <div th:case="'instruction'">
+
+                                        <pre th:text="${question.instruction}"></pre>
+
+                                    </div>
+
+                                    <div th:case="'selecteur'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div th:case="'roti'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div th:case="'notation'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div th:case="'qcm'">
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <canvas th:id="${question.id}" class="chart_js"></canvas>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <!-- <div class="qcm_answers" th:each="qcm : ${question.getQcmsInArray()}">
+                                             <span class="qcm_answer_title" th:text="${qcm}">Philippe Vienparici</span>
+                                             <div class="progress">
+                                                 <div th:class="${question.getClassThisQcmAnswer(qcm)}" role="progressbar" th:attr="aria-valuenow=${question.getPourcentageForThisAnswer(qcm)}"
+                                                      aria-valuemin="0" aria-valuemax="100" th:style="'width:'+${question.getPourcentageForThisAnswer(qcm)}+'%'" th:text="${question.getPourcentageForThisAnswer(qcm)} + ' % (' + ${question.getNbAnswerForThisAnswer(qcm)} + ')'">
+                                                     40%
+                                                 </div>
+                                             </div>
+                                         </div> -->
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

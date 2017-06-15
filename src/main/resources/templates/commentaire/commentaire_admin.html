@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Mes commentaires</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" th:href="@{/css/styles.css}" />
+	<link href="icheck-bootstrap.css" type="text/css" rel="stylesheet" th:href="@{/css/icheck-bootstrap.css}"/>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+	<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"/>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="functions.js" th:src="@{/js/functions.js}"></script>
+</head>
+
+<body>
+
+<!--  HEADER  -->
+
+	<nav class="navbar navbar-default header">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button id="liste-responsive" type="button" class="responsive_button">
+	      	<span class="glyphicon glyphicon glyphicon-backward"></span>
+	      </button>
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">	        
+	        <span class="sr-only">Activer la navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">ISEPReact</a>
+	    </div>
+	
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <form class="navbar-form navbar-left">
+	        <div class="form-group">
+	          <div class="input-group">
+			      <input type="text" class="form-control" placeholder="Rechercher...">
+			      <span class="input-group-btn">
+			      	<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+		      	  </span>
+		      </div><!-- /input-group -->
+	        </div>
+	      </form>
+	      <ul class="nav navbar-nav navbar-right">
+	      	<li class="dropdown">
+          	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Module<span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Module 1</a></li>
+	            <li><a href="#">Module 2</a></li>
+	            <li><a href="#">Module 3</a></li>
+	            <li><a href="#">Module 4</a></li>
+	          </ul>
+	        </li>
+	        <li><a href="#">Mon profil</a></li>
+	        <li><a href="#">Se déconnecter</a></li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+<!-- FIN DU HEADER -->
+
+	<div class="container-fluid colonnes-home">
+	
+	<div class="col-md-2 text_center colonne-gauche" id="colonne-gauche">
+		<div class="scrollableDiv">
+		
+			<div class="title_div blue">Catégories</div>		
+			<div class="categorie-home current_categorie"><span class="glyphicon glyphicon-folder-open"></span> <span class="dossier_name">Les questionnaires</span></div>
+			<div class="categorie-home"><span class="glyphicon glyphicon-folder-close"></span> <span class="dossier_name">Les alertes</span></div>
+			<div class="categorie-home"><span class="glyphicon glyphicon-folder-close"></span> <span class="dossier_name">Les notes de classes</span></div>
+			
+			
+			<button type="button" class="btn btn-primary btn_add_questionnaire2" data-toggle="modal" data-target="#notifications"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> Notifications <span class="badge">10</span></button>
+		</div>
+		
+		<div id="notifications" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+			
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title text-blue"><span class="glyphicon glyphicon-bell"></span> Mes notifications</h4>
+			      </div>
+			      <div class="modal-body">
+			        <div class="notifications">
+					    <ul class="notification-list">
+					        <li>
+					            <div class="media">
+					                <div class="media-left">
+					                    <a href="#">
+					                        <img src="https://cdn4.iconfinder.com/data/icons/mayssam/512/heart-128.png" class="media-object cat-icon rounded-circle" alt="...">
+					                    </a>
+					                </div>
+					                <div class="media-body">
+					                    <ul class="n-user-list">
+					                    <li><a href="#"><img src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png" class="avatar rounded" alt="..."></a></li>
+					                    </ul>
+					                    <p class="media-heading"><b>Ce professeur</b> a noté la classe du cours "<b>Mathématiques</b>"</p>
+					                </div>
+					            </div>
+					        </li>
+					    </ul>
+					    
+					    <ul class="notification-list">
+					        <li>
+					            <div class="media">
+					                <div class="media-left">
+					                    <a href="#">
+					                        <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/caution-128.png" class="media-object cat-icon rounded-circle" alt="...">
+					                    </a>
+					                </div>
+					                <div class="media-body">
+					                    <ul class="n-user-list">
+					                    <li><a href="#"><img src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png" class="avatar rounded" alt="..."></a></li>
+					                    </ul>
+					                    <p class="media-heading"><b>Ce professeur</b> a signalé ce commentaire sur le cours "<b>APP Electronique</b>"</p>
+					                </div>
+					                <div class="panel panel-default panel_comment">
+									  <div class="panel-body">Merci pour ton commentaire ! Je pense que c'est une très bonne idée et j'en prends note.</div>
+									</div>	
+					            </div>
+					        </li>
+					    </ul>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn" data-dismiss="modal">Fermer</button>
+			      </div>
+			    </div>
+			
+			  </div>
+			</div>
+		
+	</div>	
+		
+		<div class="col-md-10 colonne-droite">
+					
+			<div class="scrollableDiv">
+			
+				<div class="titre_cours"><h4>Alerte sur ce commentaire du cours : <b>"Algorithmie avancée"</b></h4></div>
+								
+				<div class="message">
+				
+					<button class="btn btn-primary btn-precedent" data-toggle="collapse" data-target="#previous" aria-expanded="false" aria-controls="previous">Voir les messages précédents</button>
+					
+					<div class="collapse" id="previous">
+					  <div class="well">
+					  	
+						<div class="media">
+						  <div class="media-left">
+						    <img src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png" class="media-object" style="width:60px">
+						  </div>
+						  <div class="media-body">
+						    <h4 class="media-heading">John Doe <small><i>Posté le 14 janvier 2017 à 12h30</i></small></h4>
+						    <p>
+						    	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat mi sit amet leo vehicula pretium. Donec ac lacus sed ligula ullamcorper luctus pellentesque ut velit. Vivamus porta suscipit tortor, et consequat tortor ullamcorper vitae. Vivamus hendrerit nisl eu lorem ultricies, vel dignissim mauris tempus. Vestibulum viverra, ipsum et pellentesque pulvinar, nisi eros tempus metus, nec bibendum lacus dui quis dolor. Ut tempor lacus eu lacinia sodales. Suspendisse at imperdiet eros. Suspendisse pharetra, erat vitae semper laoreet, nunc nulla lobortis tellus, nec vestibulum nisi justo id magna.
+						    </p>
+					   </div>
+					 </div>
+					
+					 <hr class="doted">
+						
+						<div class="media">
+						  <div class="media-left">
+						    <img src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png" class="media-object" style="width:60px">
+						  </div>
+						  <div class="media-body">
+						    <h4 class="media-heading">John Doe <small><i>Posté le 14 janvier 2017 à 12h30</i></small></h4>
+						    <p>
+						    	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat mi sit amet leo vehicula pretium. Donec ac lacus sed ligula ullamcorper luctus pellentesque ut velit. Vivamus porta suscipit tortor, et consequat tortor ullamcorper vitae. Vivamus hendrerit nisl eu lorem ultricies, vel dignissim mauris tempus. Vestibulum viverra, ipsum et pellentesque pulvinar, nisi eros tempus metus, nec bibendum lacus dui quis dolor. Ut tempor lacus eu lacinia sodales. Suspendisse at imperdiet eros. Suspendisse pharetra, erat vitae semper laoreet, nunc nulla lobortis tellus, nec vestibulum nisi justo id magna.
+						    </p>
+					   </div>
+					   
+					 </div>
+					</div>
+					</div>
+					
+					<div class="media">
+					  <div class="media-left">
+					    <img src="http://1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png" class="media-object" style="width:60px">
+					  </div>
+					  <div class="media-body">
+					    <h4 class="media-heading">John Doe <small><i>Posté le 14 janvier 2017 à 12h30</i></small></h4>
+					    <p>
+					    	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi placerat mi sit amet leo vehicula pretium. Donec ac lacus sed ligula ullamcorper luctus pellentesque ut velit. Vivamus porta suscipit tortor, et consequat tortor ullamcorper vitae. Vivamus hendrerit nisl eu lorem ultricies, vel dignissim mauris tempus. Vestibulum viverra, ipsum et pellentesque pulvinar, nisi eros tempus metus, nec bibendum lacus dui quis dolor. Ut tempor lacus eu lacinia sodales. Suspendisse at imperdiet eros. Suspendisse pharetra, erat vitae semper laoreet, nunc nulla lobortis tellus, nec vestibulum nisi justo id magna.
+					    </p>
+					  </div>
+					</div>
+					
+				</div>
+				
+			</div>
+				
+		
+		</div>
+	</div>
+	
+</body>
+</html>

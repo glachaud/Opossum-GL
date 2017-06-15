@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Choix Module')"></head>
+
+<body class="body_connexion">
+<div class="container">
+    <div class="col-md-3 col-sm-2"></div>
+    <div class="col-md-6 col-sm-8">
+
+        <div class="jumbotron shadow module_selector_div" id="container-module">
+            <h2 class="text-center text-blue"><strong>Mes modules</strong></h2>
+            <p th:text="${fileError != null ? fileError : ''}" style="color:red"></p>
+            <div class="scrollModule">
+                <table>
+                    <div th:if="${#lists.isEmpty(modules)}"
+                         class="text-center text-blue" id="no-module">
+                        Vous n'avez pas encore de module pour le moment, créez
+                        en un avec le bouton ci-dessous
+                        <img src="http://www.clker.com/cliparts/B/b/w/A/V/q/blue-arrow-curved-hi.png"
+                             style=" height: 50px;float: left;">
+                    </div>
+                    <tr th:each="module : ${modules}">
+                        <div type="button" th:id="${module.id}"
+                             class="btn btn-primary btn-module blue"><a
+                                th:text="${module.name}"
+                                th:href="@{/home/prof/{id}(id=${module.id})}"
+                                class="module-name"></a> <span
+                                class="glyphicon glyphicon-trash module-trash text-orange"
+                                data-toggle="modal"
+                                data-target="#deleteModuleModal"
+                                aria-hidden="true"></span></button>
+                    </tr>
+                </table>
+            </div>
+
+            <input type="hidden" id="module_to_delete" name="module_to_delete"
+                   value=""/>
+
+            <div class="form-group text-center">
+                <button type="button"
+                        class="btn btn-warning btn_add_module .orange"
+                        data-toggle="modal" data-target="#addModuleModal">
+                    Ajouter un module
+                </button>
+
+            </div>
+
+
+            <div id="deleteModuleModal"
+                 class="modal fade delete_modal centered-modal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">&times;
+                            </button>
+                            <h4 class="modal-title">Suppression d'un module</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class=" text-center">
+                                <span class="glyphicon glyphicon-alert delete-alert"
+                                      aria-hidden="true"></span></br>
+                                Vous êtes sur le point de supprimer un module,
+                                cette action est définitive.
+                                <br>Ne cliquer sur supprimer que si vous êtes
+                                sûr de votre choix.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"
+                                    class="btn btn-danger delete_module"
+                                    data-dismiss="modal">Supprimer
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="addModuleModal" class="modal fade centered-modal"
+                 role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header vligth-blue">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">&times;
+                            </button>
+                            <h4 class="modal-title">Ajouter un module</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" enctype="multipart/form-data"
+                                  action="/module/add">
+                                <div class="form-group">
+                                    <label for="name">Nom du module:</label>
+                                    <input name="name" type="text"
+                                           class="form-control" id="name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="btn btn-primary"
+                                           for="my-file-selector">
+                                        <input id="my-file-selector" type="file"
+                                               name="file"
+                                               style="display:none;"
+                                               onchange="$('#upload-file-info').html($(this).val());">
+                                        Ajouter le .csv de la classe
+                                    </label>
+                                    <span class='label label-info'
+                                          id="upload-file-info"></span>
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit"
+                                           class="btn btn-success add_module_btn"
+                                           value="Créer"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-3 col-sm-2"></div>
+</div>
+
+</body>
+</html>
+

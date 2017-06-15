@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Commentaire')"></head>
+
+<div>
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<div class="container-fluid colonnes-home">
+
+    <div th:if="${type == 'prof'}"><div th:replace="fragments/teacher_column :: teacher_column (type='idea')"></div></div>
+    <div th:if="${type == 'eleve'}"><div th:replace="fragments/student_column :: student_column (type='questionnaire')"></div></div>
+    <div th:if="${type == 'admin'}"><div th:replace="fragments/admin_column :: admin_column (type='alerte')"></div></div>
+
+    <div class="col-md-10 colonne-droite">
+
+        <div class="scrollableDiv">
+
+            <div class="titre_cours blue"><h4>Commentaire : <b th:text="${commentaire.conversation.titre}">"Algorithmie avancée"</b></h4></div>
+
+            <div class="message">
+
+                <button class="btn btn-primary btn-precedent"
+                        data-toggle="collapse" data-target="#previous"
+                        aria-expanded="false" aria-controls="previous" th:if="${commentaire.conversation.commentaires.size() > 1 && #lists.sort(commentaire.conversation.commentaires)[0].id < commentaire.id}">Voir les
+                    messages précédents
+                </button>
+
+                <div class="collapse" id="previous">
+                    <div class="well">
+
+                        <div th:each="com, iterStat : ${#lists.sort(commentaire.conversation.commentaires)}" th:if="${com.id} < ${commentaire.id}">
+                            <hr class="doted" th:if="${iterStat.first == false}">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img th:src="${com.expediteur.hasPhoto() ? '/files/' + com.expediteur.photo : '/img/photos_profil/default-user-image.png'}"
+                                         class="media-object" style="width:60px">
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><span th:text="${com.expediteur.firstName + ' ' + com.expediteur.lastName}">John Doe</span>
+                                        <small><i th:text="'Posté le '+${#calendars.format(com.date, 'dd MMM yyyy HH:mm')}">Posté le 14 janvier 2017 à
+                                            12h30</i></small>
+                                    </h4>
+                                    <p th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(com.message),'\n','&lt;br /&gt;'))}">
+                                        Lorem ipsum dolor sit amet, consectetur
+                                        adipiscing elit. Morbi placerat mi sit amet
+                                        leo vehicula pretium. Donec ac lacus sed
+                                        ligula ullamcorper luctus pellentesque ut
+                                        velit. Vivamus porta suscipit tortor, et
+                                        consequat tortor ullamcorper vitae. Vivamus
+                                        hendrerit nisl eu lorem ultricies, vel
+                                        dignissim mauris tempus. Vestibulum viverra,
+                                        ipsum et pellentesque pulvinar, nisi eros
+                                        tempus metus, nec bibendum lacus dui quis
+                                        dolor. Ut tempor lacus eu lacinia sodales.
+                                        Suspendisse at imperdiet eros. Suspendisse
+                                        pharetra, erat vitae semper laoreet, nunc
+                                        nulla lobortis tellus, nec vestibulum nisi
+                                        justo id magna.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left">
+                        <img th:src="${commentaire.expediteur.hasPhoto() ? '/files/' + commentaire.expediteur.photo : '/img/photos_profil/default-user-image.png'}"
+                             class="media-object" style="width:60px">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><span th:text="${commentaire.expediteur.firstName + ' ' + commentaire.expediteur.lastName}">John Doe</span>
+                            <small><i th:text="'Posté le '+${#calendars.format(commentaire.date, 'dd MMM yyyy HH:mm')}">Posté le 14 janvier 2017 à 12h30</i>
+                            </small>
+                        </h4>
+                        <p th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(commentaire.message),'\n','&lt;br /&gt;'))}">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Morbi placerat mi sit amet leo vehicula
+                            pretium. Donec ac lacus sed ligula ullamcorper
+                            luctus pellentesque ut velit. Vivamus porta suscipit
+                            tortor, et consequat tortor ullamcorper vitae.
+                            Vivamus hendrerit nisl eu lorem ultricies, vel
+                            dignissim mauris tempus. Vestibulum viverra, ipsum
+                            et pellentesque pulvinar, nisi eros tempus metus,
+                            nec bibendum lacus dui quis dolor. Ut tempor lacus
+                            eu lacinia sodales. Suspendisse at imperdiet eros.
+                            Suspendisse pharetra, erat vitae semper laoreet,
+                            nunc nulla lobortis tellus, nec vestibulum nisi
+                            justo id magna.
+                        </p>
+                    </div>
+                </div>
+
+                <hr class="doted">
+
+                <div class="reponses_recentes">
+                    <div th:each="com : ${#lists.sort(commentaire.conversation.commentaires)}" th:if="${com.id} > ${commentaire.id}">
+                    <div class="media">
+                        <div class="media-left">
+                            <img th:src="${com.expediteur.hasPhoto() ? '/files/' + com.expediteur.photo : '/img/photos_profil/default-user-image.png'}"
+                                 class="media-object" style="width:60px">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><span th:text="${com.expediteur.firstName + ' ' + com.expediteur.lastName}">John Doe</span>
+                                <small><i th:text="'Posté le '+${#calendars.format(com.date, 'dd MMM yyyy HH:mm')}">Posté le 14 janvier 2017 à 12h30</i>
+                                </small>
+                            </h4>
+                            <p th:utext="${#strings.unescapeJava(#strings.replace(#strings.escapeJava(com.message),'\n','&lt;br /&gt;'))}">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Morbi placerat mi sit amet leo vehicula
+                                pretium. Donec ac lacus sed ligula ullamcorper
+                                luctus pellentesque ut velit. Vivamus porta suscipit
+                                tortor, et consequat tortor ullamcorper vitae.
+                                Vivamus hendrerit nisl eu lorem ultricies, vel
+                                dignissim mauris tempus. Vestibulum viverra, ipsum
+                                et pellentesque pulvinar, nisi eros tempus metus,
+                                nec bibendum lacus dui quis dolor. Ut tempor lacus
+                                eu lacinia sodales. Suspendisse at imperdiet eros.
+                                Suspendisse pharetra, erat vitae semper laoreet,
+                                nunc nulla lobortis tellus, nec vestibulum nisi
+                                justo id magna.
+                            </p>
+                        </div>
+                    </div>
+                    <hr class="doted">
+                </div>
+                <div class="next_message" style="display:none;"></div>
+                </div>
+
+                <div class="repondre" th:if="${type == 'prof' || type == 'eleve'}">
+                    <form>
+                        <textarea class="reponse_a_ecrire" rows="10" placeholder="Votre réponse..."></textarea>
+                    </form>
+                    <button id="repondre_com" class="btn btn-success btn-envoie" th:attr="data-conversation=${commentaire.conversation.id}"><span
+                            class="glyphicon glyphicon-send add_margin_glyph"></span>
+                        Envoyer
+                    </button>
+                    <button th:if="${type == 'prof'}" class="btn btn-danger btn-envoie alert-admin" th:attr="data-commentaire=${commentaire.id}"><span
+                            th:class="${commentaire.conversation.offensif ? 'glyphicon glyphicon-ok add_margin_glyph' : 'glyphicon glyphicon-bell add_margin_glyph'}"></span>
+                        Alerter l'administration
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

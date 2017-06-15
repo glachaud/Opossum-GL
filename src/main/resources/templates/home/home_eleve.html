@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Accueil élève')"></head>
+
+<body>
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<div class="container-fluid colonnes-home">
+
+    <div th:replace="fragments/student_column :: student_column (type='commentaire')"></div>
+
+    <div class="col-md-10 colonne-droite colonne-eleve scrollableDiv">
+
+        <div th:if="${selectedModule == null}" class="titre_cours blue"><h4>Tous les cours</h4></div>
+        <div th:if="${selectedModule}" class="titre_cours blue" ><h4 th:text="${selectedModule.name}">Tous les cours</h4></div>
+        <div th:if="${selectedModule}" class="div_commentaire">
+        <button class="btn btn_eleve" data-toggle="modal" data-target="#commentaire_modal">
+            <span class="glyphicon glyphicon-comment"></span> Commenter ce cours
+        </button>
+        <button class="btn btn_eleve" data-toggle="modal" data-target="#retour_modal">
+            <span class="glyphicon glyphicon-bullhorn"></span> Retours sur la classe
+        </button>
+        </div>
+
+        <div th:if="${selectedModule}" id="commentaire_modal" th:attr="data-cours=${selectedModule.id}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-blue"><span
+                                class="glyphicon glyphicon-pencil"></span>
+                            Retour sur le cours : <span th:text="${selectedModule.name}">Algorithmie avancée</span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="titre_commentaire">Titre du commentaire</label>
+                                <input type="text" class="form-control"
+                                          id="titre_commentaire" name="titre_commentaire">
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Votre commentaire</label>
+                                <textarea class="form-control" rows="5"
+                                          id="comment"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success"
+                                id="envoie_commentaire">Envoyer
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div th:if="${selectedModule}" id="retour_modal" data-cours="1" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-blue"><span
+                                class="glyphicon glyphicon-pencil" ></span>
+                            Commentaire de l'enseignant</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <h5 class="text-blue">Commentaire :</h5>
+                                <p th:if="${selectedModule.commentaire}" th:text="${selectedModule.commentaire}"> Le super commentaire du prof </p>
+                                <p th:if="${selectedModule.commentaire == null}"> L'enseignant n'a pas encore fait de retours sur ce cours </p>
+                            </div>
+                            <div class="form-group">
+                                <h5 class="text-blue">Note du cour : </h5><span id="note_module" th:if="${selectedModule.note}" th:text="${selectedModule.note}">5</span>
+                                <span id="note_module" th:if="${selectedModule.note == null}"> Pas encore de note</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="div_questionnaires_eleves">
+        <div th:each="questionnaire : ${questionnaires}" th:id="${questionnaire.id}" th:if="${(questionnaire.type == 'live' && questionnaire.ongoing == true) || questionnaire.type == 'questionnaire'}" class="col-md-6">
+            <div th:class="'panel panel-default panel-eleve text-center'+${questionnaire.isAvailable() ? '' : ' not_available'} + ${questionnaire.type == 'live' ? ' questionnaire_live_eleve' : ''} + ${questionnaire.type != 'live' && questionnaire.getQuestions().iterator().next().hasAlreadyAnswered(user) ? ' alreadyAnswered' : ''}">
+                <div class="panel-body">
+                    <section class="post-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="media">
+                                    <img class="media-object photo-profile media-eleve"
+                                         th:src="${questionnaire.user.hasPhoto() ? '/files/' + questionnaire.user.photo : '/img/photos_profil/default-user-image.png'}"
+                                         width="40" height="40" alt="...">
+                                    <div class="media-body">
+                                        <a href="#" class="anchor-username"><h4
+                                                class="media-heading" th:text="${questionnaire.user.firstName + ' ' + questionnaire.user.lastName}">Un
+                                            professeur</h4></a>
+                                        <a href="#" class="anchor-time" th:attr="data-time=${#calendars.format(questionnaire.date, 'yyyy-MM-dd HH:mm:ss')}" th:text="${#calendars.format(questionnaire.date, 'dd MMM yyyy HH:mm')}">Il y a 4
+                                            heures</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="post-body">
+                        <h4 th:text="${questionnaire.name}">Comment avez-vous trouvé mon cours ?</h4>
+                        <p class="complement_btn_questionnaire" th:if="${questionnaire.dateFin != null}"><span
+                                class="glyphicon glyphicon-remove"></span>
+                            <span th:text="'Du '+${#calendars.format(questionnaire.dateDebut, 'dd MMM yyyy HH:mm')}+' au ' + ${#calendars.format(questionnaire.dateFin, 'dd MMM yyyy HH:mm')}">Invalide dans 10 minutes</span></p>
+                        <p class="complement_btn_questionnaire" th:if="${questionnaire.dateFin == null && questionnaire.type != 'live'}"><span
+                                class="glyphicon glyphicon-ok"></span>
+                            <span>Ce questionnaire sera toujours disponible</span></p>
+                        <p class="complement_btn_questionnaire" th:if="${questionnaire.type == 'live'}"><span
+                                class="glyphicon glyphicon-play"></span>
+                            <span>Ce questionnaire est en live !</span></p>
+                        <button th:if="${questionnaire.type != 'live'}" th:id="'btn_questionnaire' + ${questionnaire.id}" class="btn btn-warning btn_answer_or_see" data-toggle="modal" data-target='#questionnaire_modal'
+                                th:attr="data-questionnaire=${questionnaire.id}" th:disabled="${!questionnaire.isAvailable()}" th:text="${questionnaire.getQuestions()[0].hasAlreadyAnswered(user) ? 'Voir mes réponses' : 'Répondre'}">Répondre
+                        </button>
+                        <a th:if="${questionnaire.type == 'live'}" th:href="'/questionnaire/live/'+${questionnaire.id}">
+                            <button class="btn btn-warning">Répondre
+                            </button>
+                        </a>
+                    </section>
+                </div>
+            </div>
+
+            <div th:id="'questionnaire_modal'" class="modal fade" role="dialog">
+                <div class="modal-dialog container modal_questionnaire">
+
+                    <img th:src="@{/img/loading_icon.gif}" id="loading_ajax"/>
+                    <!-- Modal content-->
+                    <div th:fragment="questionnaire_answer_modal" class="modal-content" id="modal_answer">
+                        <div class="modal-header">
+                            <button type="button" class="close"
+                                    data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title text-blue"><span
+                                    class="glyphicon glyphicon-send"></span>
+                                Répondre à : <span th:text="${questionnaire.name}">Comment était mon cours ?</spanth:text></h4>
+                        </div>
+                        <div class="modal-body">
+                            <span th:if="${questionnaire.anonyme}" class="anonymat_reponses_text">(Réponses anonymes)</span>
+                            <form onsubmit="return false;">
+                               <div th:if="${type == 'normal'}" th:each="question : ${#lists.sort(questionnaire.getQuestions())}" class="form-group">
+                                    <div th:switch="${question.type}">
+                                        <div th:case="'ouverte'">
+                                            <label th:attr="for=${question.id}" th:text="${question.question}">Comment était mon cours
+                                                ?</label>
+                                            <textarea class="form-control" rows="5"
+                                                      th:id="${question.id}" th:attr="data-question=${question.id}"></textarea>
+                                        </div>
+                                        <div th:case="'slider'">
+                                            <label th:attr="for=${question.id}" th:text="${question.question}">Comment était mon cours
+                                                ?</label>
+                                            <div class="input-group slider_emoji">
+                                                <div class="col-md-11">
+                                                    <input class="form-control input_emoji"
+                                                           type="range" value="50" max="100"
+                                                           min="0" step="5"
+                                                           th:attr="data-question=${question.id}">
+                                                </div>
+                                                <div class="col-md-1 smiley_slider">
+                                                    <i th:class="'em '+${question.getEmojisInArray()[2]}"
+                                                       th:id="'emoji-'+${question.id}" data-toggle="popover"
+                                                       data-html="true"
+                                                       data-placement="bottom"></i>
+                                                    <input type="hidden"
+                                                           th:name="'tres_mauvais_'+${question.id}"
+                                                           th:attr="value=${question.getEmojisInArray()[0]}"/>
+                                                    <input type="hidden" th:name="'mauvais_'+${question.id}"
+                                                           th:attr="value=${question.getEmojisInArray()[1]}"/>
+                                                    <input type="hidden" th:name="'mitige_'+${question.id}"
+                                                           th:attr="value=${question.getEmojisInArray()[2]}"/>
+                                                    <input type="hidden" th:name="'heureux_'+${question.id}"
+                                                           th:attr="value=${question.getEmojisInArray()[3]}"/>
+                                                    <input type="hidden"
+                                                           th:name="'tres_heureux_'+${question.id}"
+                                                           th:attr="value=${question.getEmojisInArray()[4]}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div th:case="'notation'">
+                                            <label th:attr="for=${question.id}" th:text="${question.question}">Une note ?</label>
+                                            <span class="infos_sup" th:text="'(Note entre ' + ${question.min_grade} + ' et ' + ${question.max_grade} + ')'"></span>
+                                            <input type="hidden" name="max" th:value="${question.max_grade}" th:id="'max'+${question.id}"/>
+                                            <input type="hidden" name="min" th:value="${question.min_grade}" th:id="'min'+${question.id}"/>
+                                            <input class="form-control" type="number"
+                                                   th:attr="data-question=${question.id}" th:value="${#numbers.formatDecimal((question.max_grade+question.min_grade)/2, 0, 0)}" th:max="${question.max_grade}" th:min="${question.min_grade}">
+                                        </div>
+                                        <div th:case="'roti'">
+                                            <label th:text="${question.question}">ROTI</label>
+                                            <div class="radio radio_roti icheck-primary">
+                                                <input th:id="${question.id}+'1'" th:attr="data-question=${question.id}" type="radio" name="roti" value="1"/>
+                                                <label th:for="${question.id}+'1'">1</label>
+                                                <span>Je n'ai rien gagné et rien appris, j'ai vraiment perdu mon temps !</span>
+                                            </div>
+                                            <div class="radio radio_roti icheck-primary">
+                                                <input th:id="${question.id}+'2'" th:attr="data-question=${question.id}" type="radio" name="roti" value="2"/>
+                                                <label th:for="${question.id}+'2'">2</label>
+                                                <span>Utile, mais ça ne valait pas le temps qu'on y a passé.</span>
+                                            </div>
+                                            <div class="radio radio_roti icheck-primary">
+                                                <input th:id="${question.id}+'3'" th:attr="data-question=${question.id}" type="radio" name="roti" value="3"/>
+                                                <label th:for="${question.id}+'3'">3</label>
+                                                <span>Dans la moyenne... Correspondait à mes attentes.</span>
+                                            </div>
+                                            <div class="radio radio_roti icheck-primary">
+                                                <input th:id="${question.id}+'4'" th:attr="data-question=${question.id}" type="radio" name="roti" value="4"/>
+                                                <label th:for="${question.id}+'4'">4</label>
+                                                <span>Bien ! J'ai appris plus que je ne l'espérais pour le temps qu'on y a passé.</span>
+                                            </div>
+                                            <div class="radio radio_roti icheck-primary">
+                                                <input th:id="${question.id}+'5'" th:attr="data-question=${question.id}" type="radio" name="roti" value="5"/>
+                                                <label th:for="${question.id}+'5'">5</label>
+                                                <span>Excellent ! Cela valait bien plus que le temps qu'on y a passé !</span>
+                                            </div>
+                                        </div>
+                                        <div th:case="'selecteur'">
+                                            <label th:attr="for=${question.id}" th:text="${question.question}">ROTI</label>
+                                            <select class="form-control" th:id="${question.id}" th:attr="data-question=${question.id}">
+                                                <option th:each="selecteur : ${question.getSelectorsInArray()}" th:value="${selecteur}" th:text="${selecteur}">0</option>
+                                            </select>
+                                        </div>
+                                        <div th:case="'qcm'">
+                                            <label th:text="${question.question}">QCM</label>
+                                            <div class="checkbox icheck-primary" th:each="qcm, iterStat : ${question.getQcmsInArray()}">
+                                                <input th:id="'qcm'+${iterStat.index}+${question.id}" th:attr="data-question=${question.id}" type="checkbox" name="qcm" th:value="${qcm}"/>
+                                                <label th:text="${qcm}" th:for="'qcm'+${iterStat.index}+${question.id}">Option 1</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:if="${type == 'wait'}">
+                                    Les réponses seront visibles lorsque le questionnaire ne sera plus disponible.
+                                </div>
+                                <div th:if="${type == 'tooLate'}">
+                                    Bien tenté... Mais ça ne suffira pas ! ¯\_(ツ)_/¯
+                                </div>
+                                <div th:if="${type == 'answer'}" th:each="question : ${#lists.sort(questionnaire.getQuestions())}" class="form-group">
+                                    <div th:switch="${question.type}">
+                                    <div th:case="'ouverte'">
+                                        <label th:attr="for=${question.id}" th:text="${question.question}">Comment était mon cours
+                                            ?</label>
+                                        <pre th:text="${question.getAnswerFrom(user).answer}"></pre>
+                                    </div>
+                                    <div th:case="'slider'">
+                                        <label th:attr="for=${question.id}" th:text="${question.question}">Comment était mon cours
+                                            ?</label>
+                                        <div class="input-group slider_emoji">
+                                            <div class="col-md-11">
+                                                <input class="form-control input_emoji"
+                                                       type="range" value="50" max="100"
+                                                       min="0" step="5"
+                                                       th:attr="data-question=${question.id}" disabled>
+                                            </div>
+                                            <div class="col-md-1 smiley_slider">
+                                                <i th:class="'em '+${question.getEmojisForThisValue(question.getAnswerFrom(user).answer)}"
+                                                   th:id="'emoji-'+${question.id}" data-toggle="popover"
+                                                   data-html="true"
+                                                   data-placement="bottom"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:case="'notation'">
+                                        <label th:attr="for=${question.id}" th:text="${question.question}">Une note ?</label>
+                                        <span class="infos_sup" th:text="'(Note entre ' + ${question.min_grade} + ' et ' + ${question.max_grade} + ')'"></span>
+                                        <input type="hidden" name="max" th:value="${question.max_grade}" th:id="'max'+${question.id}"/>
+                                        <input type="hidden" name="min" th:value="${question.min_grade}" th:id="'min'+${question.id}"/>
+                                        <input class="form-control" type="number"
+                                               th:attr="data-question=${question.id}" th:value="${question.getAnswerFrom(user).answer}" th:max="${question.max_grade}" th:min="${question.min_grade}" disabled>
+                                    </div>
+                                    <div th:case="'roti'">
+                                        <label th:text="${question.question}">ROTI</label>
+                                        <div class="radio radio_roti icheck-primary">
+                                            <input th:id="${question.id}+'1'" th:attr="data-question=${question.id}, checked=${question.getAnswerFrom(user).answer == '1' ? 'true' : 'false'}" type="radio" name="roti" value="1" disabled/>
+                                            <label th:for="${question.id}+'1'">1</label>
+                                            <span>Je n'ai rien gagné et rien appris, j'ai vraiment perdu mon temps !</span>
+                                        </div>
+                                        <div class="radio radio_roti icheck-primary">
+                                            <input th:id="${question.id}+'2'" th:attr="data-question=${question.id}, checked=${question.getAnswerFrom(user).answer == '2' ? 'true' : 'false'}" type="radio" name="roti" value="2" disabled/>
+                                            <label th:for="${question.id}+'2'">2</label>
+                                            <span>Utile, mais ça ne valait pas le temps qu'on y a passé.</span>
+                                        </div>
+                                        <div class="radio radio_roti icheck-primary">
+                                            <input th:id="${question.id}+'3'" th:attr="data-question=${question.id}, checked=${question.getAnswerFrom(user).answer == '3' ? 'true' : 'false'}" type="radio" name="roti" value="3" disabled/>
+                                            <label th:for="${question.id}+'3'">3</label>
+                                            <span>Dans la moyenne... Correspondait à mes attentes.</span>
+                                        </div>
+                                        <div class="radio radio_roti icheck-primary">
+                                            <input th:id="${question.id}+'4'" th:attr="data-question=${question.id}, checked=${question.getAnswerFrom(user).answer == '4' ? 'true' : 'false'}" type="radio" name="roti" value="4" disabled/>
+                                            <label th:for="${question.id}+'4'">4</label>
+                                            <span>Bien ! J'ai appris plus que je ne l'espérais pour le temps qu'on y a passé.</span>
+                                        </div>
+                                        <div class="radio radio_roti icheck-primary">
+                                            <input th:id="${question.id}+'5'" th:attr="data-question=${question.id}, checked=${question.getAnswerFrom(user).answer == '5' ? 'true' : 'false'}" type="radio" name="roti" value="5" disabled/>
+                                            <label th:for="${question.id}+'5'">5</label>
+                                            <span>Excellent ! Cela valait bien plus que le temps qu'on y a passé !</span>
+                                        </div>
+                                    </div>
+                                    <div th:case="'selecteur'">
+                                        <label th:attr="for=${question.id}" th:text="${question.question}">ROTI</label>
+                                        <select class="form-control" th:id="${question.id}" th:attr="data-question=${question.id}" disabled>
+                                            <option th:value="${question.getAnswerFrom(user).answer}" th:text="${question.getAnswerFrom(user).answer}">0</option>
+                                        </select>
+                                    </div>
+                                    <div th:case="'qcm'">
+                                        <label th:text="${question.question}">QCM</label>
+                                        <div class="checkbox icheck-primary" th:each="qcm, iterStat : ${question.getQcmsInArray()}" th:style="${!question.isQcmWithRightAnswers() ? '' : question.isItRightQcmAnswer(qcm) ? 'color:green;' : 'color:red;'}">
+                                            <input th:id="'qcm'+${iterStat.index}+${question.id}" th:attr="data-question=${question.id}, checked=${question.getAnswerFrom(user).answer == qcm ? 'true' : 'false'}" type="checkbox" name="qcm" th:value="${qcm}" disabled/>
+                                            <label th:text="${qcm}" th:for="'qcm'+${iterStat.index}+${question.id}">Option 1</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button th:if="${type == 'normal'}" type="button" class="btn btn-success student_answer"
+                                    th:attr="data-id=${questionnaire.id}">Envoyer
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

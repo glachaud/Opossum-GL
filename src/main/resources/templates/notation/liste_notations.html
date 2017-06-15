@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head  :: head (title = 'Notations')"></head>
+
+<body>
+
+<nav th:replace="fragments/header :: header "></nav>
+
+<div class="container-fluid colonnes-home">
+
+    <div th:replace="fragments/admin_column :: admin_column (type='note')"></div>
+
+    <div class="col-md-10 colonne-droite">
+
+
+        <div class="header_home_prof">
+            <div class="header_questionnaire_mobile">
+                Liste des notations disponibles
+            </div>
+
+
+            <div class="table_questionnaire head_questionnaire header_questionnaire"
+                 id="first_row_home">
+
+                Liste des notations disponibles
+
+            </div>
+
+        </div>
+
+
+        <div class="scrollableDiv_home_prof">
+            <table class="table_questionnaire table_questionnaire_body">
+                <tr th:each="module : ${modules}" th:class="'row_questionnaire ligne_questionnaire add_hover' + ${module.viewedByAdmin == true ? '' : ' non_lu'}"
+                    th:id="'conversation_'+${module.id}">
+                    <td class="petit-td text_center">
+                    </td>
+
+                    <td class="voir_commentaire" th:attr="data-href='/module/view/'+${module.id}">
+                        <span th:text="${module.name}">Nom du questionnaire</span>
+                    </td>
+
+                    <td class="voir_commentaire" th:attr="data-href='/module/view/'+${module.id}">
+                        <span th:text="${module.teacher.firstName + ' ' + module.teacher.lastName}">Nom du receveur</span>
+                    </td>
+
+                    <td class="paging_row_home text_center voir_commentaire" th:attr="data-href='/module/view/'+${module.id}">
+                        <span th:attr="data-time=${#calendars.format(module.datePourNotif, 'yyyy-MM-dd HH:mm:ss')}" th:text="${#calendars.format(module.datePourNotif, 'dd MMM yyyy HH:mm')}">Heure</span>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

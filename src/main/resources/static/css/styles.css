@@ -1,0 +1,1321 @@
+/* Bootstrap Overwrite */
+
+.btn-primary{
+	background-color : #0061a1;
+}
+
+.btn-warning, .label-warning{
+	background-color : #de9300;
+}
+
+/* Charte ISEP */
+
+.blue{
+	background-color : #0061a1;
+}
+
+.ligth-blue{
+	background-color : #4c90bd;
+}
+
+.vligth-blue{
+	background-color : #b2cfe2;
+}
+
+.orange{
+	background-color: #f4a100;
+}
+
+.ligth-orange{
+	background-color: #eabc63;
+}
+
+.vligth-orange{
+	background-color: #fce3b3;
+}
+
+.text-blue{
+	color : #0061a1;
+}
+
+.text-ligth-blue{
+	color : #4c90bd;
+}
+
+.text-vligth-blue{
+	color : #b2cfe2;
+}
+
+.text-orange{
+	color: #f4a100;
+}
+
+.text-ligth-orange{
+	color: #eabc63;
+}
+
+.text-vligth-orange{
+	color: #fce3b3;
+}
+
+.text-red{
+	color: red;
+}
+
+.text-green{
+	color: #51b339;
+}
+
+/* GENERAL */
+
+a { color: inherit; }
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.add_margin_glyph{
+	margin-right: 8px;
+}
+
+.no-padding{
+	padding: 0px !important;
+}
+
+::-webkit-scrollbar {
+background: transparent;
+	overflow: visible;
+	width: 17px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.2);
+	border: solid #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+	border-width: 4px 6px;
+	min-width: 40px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+	border-width: 6px 4px;
+	min-height: 40px;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #fff;
+}
+
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #ADADAD;
+	-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #999;
+}
+
+a:hover 
+{
+	 color:inherit;
+     text-decoration: none; 
+     cursor: pointer;  
+}
+.ui-datepicker { position: relative; z-index: 10000 !important; }
+
+.add_hover:hover{
+	color: #f4a100;
+	cursor: pointer;
+}
+
+.text_center{
+	text-align: center;
+}
+
+.hr_sombre{
+	border-color: black;
+}
+
+.align_left{
+	text-aign: left;
+}
+
+.hr_petit{
+	width: 35%;
+}
+
+.texte-italique{
+	font-style: italic;
+}
+
+.shadow{
+	-moz-box-shadow: 0 0 15px #ccc;
+	-webkit-box-shadow: 0 0 15px #ccc;
+	box-shadow: 0 0 15px #ccc;
+}
+
+.logo_isep{
+	background-image: url("http://www.isep.fr/parcours/logoISEP.png");
+	background-size: cover;
+	width:auto;
+	height:0px;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden; 
+    height: 100%;
+}
+
+.achievement{
+	display: none;
+	padding: 10px;
+	border: 1px solid green;
+	background-color: #dff0d8;
+	position:absolute;
+	z-index:150;
+	bottom:15px;
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto; 
+	width: 50%; /* Need a specific value to work */
+}
+
+.achievement:hover{
+	opacity: 0.7;
+	cursor: pointer;
+}
+
+.centered-modal{
+	top:15%;
+	outline: none;
+}
+
+.action_dossier{
+	display: inline;
+	float: right;
+}
+
+.action_dossier .glyphicon{
+	margin-left: 5px;
+}
+
+.action_dossier .glyphicon:hover{
+	color: #f4a100;
+}
+
+.delete_modal .modal-header{
+	background-color: #d9534f;
+	color: white;
+}
+
+.action_dossier{
+	display: none;
+}
+
+
+/* HEADER */
+
+.responsive_button{
+	padding: 6px 10px;
+	position: relative;
+    float: right;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: none;
+}
+
+.header{
+	margin-bottom: 0px !important;
+}
+
+.header .navbar-brand{
+	color: #0061a1;
+}
+
+/* CONNEXION */
+
+.logoSite{
+	height: 130px;
+	display: block;
+	margin: 0 auto;
+}
+
+.connexion_div{
+	background-color: rgba(255, 255, 255, 1);
+	padding-top: 20px;
+}
+
+.vertical_center{
+	margin-top:120px;
+}
+
+.body_connexion{
+	background-color: #ffffff;
+	background-image: url("data:image/svg+xml,%3Csvg width='304' height='304' viewBox='0 0 304 304' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M44.1 224c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H0v-2h44.1zm160 48c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H82v-2h122.1zm57.8-46c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H304v2h-42.1zm0 16c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H304v2h-42.1zm6.2-114c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4h-86.2c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4h86.2zm-256-48c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H0v-2h12.1zm185.8 34c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4h86.2c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4h-86.2zM258 12.1c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9V0h2v12.1zm-64 208c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9v-54.2c-2.282-.463-4-2.48-4-4.9 0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.42-1.718 4.437-4 4.9v54.2zm48-198.2c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9V82h64v-2h-62V21.9zm16 16c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9V66h48v-2h-46V37.9zm-128 96c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9V210h16v10.1c-2.282.463-4 2.48-4 4.9 0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.42-1.718-4.437-4-4.9V208h-16v-74.1zm-5.9-21.9c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H114v48H85.9c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H112v-48h12.1zm-6.2 130c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H176v-74.1c-2.282-.463-4-2.48-4-4.9 0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.42-1.718 4.437-4 4.9V242h-60.1zm-16-64c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H114v48h10.1c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H112v-48h-10.1zM66 284.1c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9V274H50v30h-2v-32h18v12.1zM236.1 176c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H226v94h48v32h-2v-30h-48v-98h12.1zm25.8-30c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H274v44.1c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9V146h-10.1zm-64 96c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H208v-80h16v-14h-42.1c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H226v18h-16v80h-12.1zm86.2-210c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H272V0h2v32h10.1zM98 101.9c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9V144H53.9c-.463-2.282-2.48-4-4.9-4-2.76 0-5 2.24-5 5s2.24 5 5 5c2.42 0 4.437-1.718 4.9-4H98v-44.1zM53.9 34c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H80V0h2v34H53.9zm60.1 3.9c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9V64H80v64H69.9c-.463-2.282-2.48-4-4.9-4-2.76 0-5 2.24-5 5s2.24 5 5 5c2.42 0 4.437-1.718 4.9-4H82V66h32V37.9zM101.9 82c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H128V37.9c-2.282-.463-4-2.48-4-4.9 0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.42-1.718 4.437-4 4.9V82h-28.1zm16-64c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H146v44.1c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9V18h-26.1zm102.2 270c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H98v14h-2v-16h124.1zM242 149.9c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9V162h16v30h-16v66h48v46h2v-48h-48v-62h16v-34h-16v-10.1zM53.9 18c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H64V2H48V0h18v18H53.9zm112 32c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H192V0h50v2h-48v48h-28.1zm-48-48c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5 0-.342.034-.677.1-1h2.07c-.11.313-.17.65-.17 1 0 1.657 1.343 3 3 3s3-1.343 3-3c0-.35-.06-.687-.17-1H178v34h-18V21.9c-2.282-.463-4-2.48-4-4.9 0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.42-1.718 4.437-4 4.9V32h14V2h-58.1zm0 96c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H137l32-32h39V21.9c-2.282-.463-4-2.48-4-4.9 0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.42-1.718 4.437-4 4.9V66h-40.172l-32 32H117.9zm28.1 90.1c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9v-76.513L175.586 80H224V21.9c-2.282-.463-4-2.48-4-4.9 0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.42-1.718 4.437-4 4.9V82h-49.586L146 112.414V188.1zm16 32c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9v-99.513L184.586 96H300.1c.398-1.96 1.94-3.502 3.9-3.9v2.07c-1.165.413-2 1.524-2 2.83s.835 2.417 2 2.83v2.07c-1.96-.398-3.502-1.94-3.9-3.9H185.414L162 121.414V220.1zm-144-64c2.282.463 4 2.48 4 4.9 0 2.76-2.24 5-5 5s-5-2.24-5-5c0-2.42 1.718-4.437 4-4.9v-3.513l48-48V48h32V0h2v50H66v55.413l-48 48v2.687zM50 53.9c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9v42.686l-48 48V210h28.1c.463 2.282 2.48 4 4.9 4 2.76 0 5-2.24 5-5s-2.24-5-5-5c-2.42 0-4.437 1.718-4.9 4H2v-62.586l48-48V53.9zm-16 16c2.282-.463 4-2.48 4-4.9 0-2.76-2.24-5-5-5s-5 2.24-5 5c0 2.42 1.718 4.437 4 4.9v18.686l-32 32v2.828l34-34V69.9zM12.1 32c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H9.414L0 43.414v-2.828L8.586 32H12.1zm265.8 18c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4h18.686L304 40.586v2.828L297.414 50H277.9zm-16 160c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H288V136.587l16-16v2.827l-14 14V210h-28.1zm-208 32c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H64v-22.586L40.586 194H21.9c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4h19.513L66 216.586V242H53.9zm150.2 14c.463-2.282 2.48-4 4.9-4 2.76 0 5 2.24 5 5s-2.24 5-5 5c-2.42 0-4.437-1.718-4.9-4H96v-56.598L56.598 162H37.9c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4h19.502L98 200.598V256h106.1zm-150.2 2c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4H80v-46.586L48.586 178H21.9c-.463 2.282-2.48 4-4.9 4-2.76 0-5-2.24-5-5s2.24-5 5-5c2.42 0 4.437 1.718 4.9 4h27.513L82 208.586V258H53.9zM97 100c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-48 32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm32 48c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm32-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0-32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm32 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16-64c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 96c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-144c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-96 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm96 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16-64c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-32 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM49 36c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-32 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm32 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM33 68c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-48c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 240c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16-64c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16-32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm80-176c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm32 48c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0-32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm112 176c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-16 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM17 180c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0-32c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16 0c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM17 84c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm32 64c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm16-16c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 39.793V0h-2v40.586L8.586 64H0v2h9.413L34 41.414v-1.62zM2 300.1V258h14v46h2v-48H0V302.17c.313-.11.65-.17 1-.17 1.306 0 2.417.835 2.83 2H5.9c-.398-1.96-1.94-3.502-3.9-3.9zM34 241v63h-2v-62H0v-2h34v1zM17 18h1V0h-2v16H0v2h17zm273-2V0h-2v18h16v-2h-14zm-32 273v15h-2v-14h-14v14h-2v-16h18v1zM0 92.1c.323-.066.658-.1 1-.1 2.76 0 5 2.24 5 5s-2.24 5-5 5c-.342 0-.677-.034-1-.1v-2.07c.313.11.65.17 1 .17 1.657 0 3-1.343 3-3s-1.343-3-3-3c-.35 0-.687.06-1 .17V92.1zM80 272h2v32h-2v-32zm37.9 32c-.463-2.282-2.48-4-4.9-4-2.42 0-4.437 1.718-4.9 4h2.07c.413-1.165 1.524-2 2.83-2s2.417.835 2.83 2h2.07zM5.9 0c.066.323.1.658.1 1 0 2.76-2.24 5-5 5-.342 0-.677-.034-1-.1V3.83C.313 3.94.65 4 1 4c1.657 0 3-1.343 3-3 0-.35-.06-.687-.17-1H5.9zm294.2 0c-.066.323-.1.658-.1 1 0 2.42 1.718 4.437 4 4.9V3.83c-1.165-.413-2-1.524-2-2.83 0-.35.06-.687.17-1h-2.07zm3.9 300.1c-1.96.398-3.502 1.94-3.9 3.9h2.07c.302-.852.978-1.528 1.83-1.83v-2.07z' fill='%230061a1' fill-opacity='0.65' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.h3_connexion{
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+.button_div_connexion{
+	margin-top: 30px;
+	margin-bottom: 0px;
+}
+
+@media screen and (max-width: 992px) {    
+    .connexion_div{
+    margin-top : 90px;)
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .connexion_div{
+    margin-top : 30px;)
+    }
+}
+/* MODULE SELECTOR */
+
+.module_selector_div{
+	margin-top: 50px;
+	background-color: rgba(255, 255, 255, 1); 
+}
+
+
+.scrollModule{
+	overflow-y : auto;
+	max-height : 280px;
+	height : auto;
+}
+.btn-module{
+	width : 100%;
+	border-radius : 20px;
+	padding : 20px;
+	margin : 20px 0 0 0;
+	font-size : 1.375em;
+	color : black;
+	font-weight : 600;
+}
+
+#no-module{
+margin-top : 20px;
+}
+
+.module-name{
+    display:inline-block;
+    width : 85%;
+    white-space : normal;
+}
+.btn_add_module{
+	width : 70%;
+	border-radius : 20px;
+	padding : 20px;
+	margin : 35px 0 0 0;
+	font-size : 1.375em;
+	color : black;
+	font-weight : 600;
+}
+.module-trash{
+	float : right;	
+}
+
+.delete-header{
+	background-color : rgb(217, 83, 79);
+	color : white;
+}
+
+.delete-alert{
+	color : #f0ad4e;
+	font-size : 6vh;
+}
+
+@media screen and (max-width: 992px) {
+    .btn-module{
+    padding : 10px;
+    font-size : 1.1em;
+    margin : 10px;
+    width : 90%;
+    }
+    .scrollModule{
+    max-height : 190px;
+    }
+    .btn_add_module{
+    font-size : 1.1em;
+    padding : 10px;
+    }
+    
+    #container-module{
+    margin-top : 90px;)
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .btn-module{
+    font-size : 0.75em;
+    }
+    .btn_add_module{
+    margin :0;
+    font-size : 0.75em;
+    }
+    
+    #container-module{
+    margin-top : 30px;)
+    }
+}
+
+
+/* HOME PROF */
+
+.changeNameButton{
+	margin-bottom: 10px;
+}
+
+.div_remove_student{
+	margin-top: 20px;
+}
+
+.live_questionnaire_row{
+	background-color: rgba(139, 195, 74, 0.63);
+}
+
+.colonnes-home{
+	height: 100%;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.colonne-gauche{
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	height: 100%;
+	border-right: 1px solid #e7e7e7;
+	background-color: #f8f8f8;
+	display:block;
+}
+
+.btn_live_questionnaire{
+	margin-top: 0px;
+	width: 85%;
+	padding: 10px;
+	color: white;
+	margin-bottom: 20px;
+}
+
+.colonne-gauche .glyphicon{
+	margin-right: 8px;
+}
+
+.btn_add_questionnaire{
+	margin-top: 20px;
+	width: 85%;
+	padding: 10px;
+	color: white;
+	margin-bottom: 20px;
+}
+
+.btn_add_questionnaire2{
+	margin-top: 20px;
+	width: 85%;
+	padding: 10px;
+	color: white;
+	margin-bottom: 0px;
+}
+
+.btn_add_questionnaire .badge{
+	margin-left: 10px;
+}
+
+.categorie-home{
+	width: 100%;
+	padding-left: 20px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	color: #6a6a6a;
+}
+
+.categorie-home:hover{
+	background-color: #d5d7de;
+	cursor: pointer;
+}
+
+.categorie-home:hover > .action_dossier{
+	display: inline;
+}
+
+.current_categorie{
+	background-color: #d5d7de;
+}
+
+.table_questionnaire{
+	width: 100%;
+}
+
+.header_home_prof{
+	padding-bottom: 10px;
+	box-shadow: 0 4px 2px -2px gray;
+}
+
+.table_questionnaire_body{
+	border: 1px solid #d3d3d3;
+	border-radius: 3px;
+}
+
+.btn_head_table{
+	background: none repeat scroll 0 0 #fcfcfc;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+    height: 100%;
+}
+
+.btn_head_table_mobile{
+    display: inline-block;
+    text-align: center;
+    height: 100%;
+}
+
+.btn-head{
+	margin-left: 5px;
+}
+
+.btn-head-mobile{
+	margin-left: 20px;
+	padding-top: 7px;
+}
+
+.header_questionnaire_mobile{
+	display:none;
+}
+
+.btn-head-last{
+	margin-left: auto;
+	margin-right: 10px;
+}
+
+.head_questionnaire{
+	display: flex;
+}
+
+.btn_head_additional_text{
+	margin-left: 5px;
+}
+
+.btn_head_table_text{
+	margin: 0px;
+	padding: 0px;
+}
+
+.row_questionnaire{
+	border-bottom: 1px solid #d3d3d3;
+	font-size:16px;
+}
+
+.row_questionnaire td{
+	padding:10px;
+	vertical-align:middle;
+}
+
+.row_questionnaire td span{
+	vertical-align: middle;
+}
+
+.row_questionnaire td input{
+	vertical-align: middle;
+}
+
+
+.colonne-droite{
+	padding: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	height: 100%;
+	overflow: hidden;
+}
+
+.header_home_prof{
+	margin-top: 20px;
+}
+
+.paging_home{
+	margin-right: 20px;
+}
+
+.paging_row_home{
+	margin-right:20px;
+	vertical-align:middle;
+}
+
+.petit-td{
+	width: 5%;
+}
+
+.petit-td label{
+	vertical-align: middle;
+}
+
+.is_checked{
+	background-color: rgba(255, 165, 0, 0.5) !important;
+	color:black;
+}
+/*
+.row_retour_cours{
+	background-color: rgba(0, 97, 161, 0.5);
+} */
+
+.non_lu{
+	background: none repeat scroll 0 0 #e8e5e5;
+    font-weight: 600;
+}
+
+.ligne_questionnaire td:nth-child(2){
+	width: 50%;
+}
+
+.scrollableDiv{
+	overflow-y: auto;
+}
+
+.scrollableDiv_home_prof{
+	overflow-y: auto;
+}
+
+.scrollableDiv2{
+	overflow-y: auto;
+}
+
+.panel_form_questionnaire{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.label_question_modal{
+	text-align: left;
+}
+
+.remove_addon{
+	background-color: #d9534f;
+	color: white;
+}
+
+.remove_addon:hover{
+	background-color: darkred;	
+	cursor: pointer;
+}
+
+.istrue_addon{
+	background-color: #4caf50;
+	color: white;
+}
+
+.istrue_addon:hover{
+	background-color: darkgreen;
+	cursor: pointer;
+}
+
+.is_true{
+	background-color: rgba(139, 195, 74, 0.66);
+}
+
+.add_question_button{
+	margin-top: 10px;
+	text-align: center;
+}
+
+.add_student_button{
+	margin-top: 0px;
+	text-align: center;
+}
+
+.select_input_question{
+	margin-top: 5px;
+}
+
+.slider_emoji{
+	width: 100%;
+}
+
+.smiley_slider{
+	padding-left: 0px;
+	padding-top: 5px;
+	cursor: pointer;
+}
+
+.valeur_question{
+	display: none;
+}
+
+.delete_question{
+	float: right;
+	color: darkred;
+}
+
+.delete_question:hover{
+	cursor: pointer;
+	color: red;
+}
+
+.popover{
+	max-width: none !important;
+}
+
+.popover i{
+	cursor: pointer;
+}
+
+.header_questionnaire{
+	display: flex;
+}
+
+@media screen and (max-width: 992px) {
+	
+    .colonne-gauche{
+    width:50%;
+    position : absolute;
+    z-index : 10;
+	display: none;
+    }
+    
+    #bottom_poll_raw{
+    text-align : center;
+    }
+    
+    #liste-responsive{
+		display : block;
+	}
+}
+
+@media screen and (max-width: 680px) {
+	.ligne_questionnaire td{
+		font-size: 12px;
+	}
+	
+	.btn_head_table{
+		font-size: 12px;
+	}
+	
+	  .header_questionnaire_mobile{
+    	display: flex;
+    }
+    
+    .header_questionnaire{
+    	display: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+	.type_question{
+    font-size : 0.75em;
+    }
+        
+    .colonne-gauche{
+    width : 65%;
+    }
+    
+    .panel_form_questionnaire{
+    padding : 0;}
+    
+    .colonne-droite{
+    	padding: 8px;
+    	padding-top: 0px;
+    }
+    
+    .header_home_prof{
+		margin-top: 8px;
+	}
+    
+    #poll-title{
+    	height : 26px;
+    }
+    
+    #form_ajout_questionnaire .container{
+    	padding : 0;
+    }
+}	
+
+/* QUESTIONNAIRE */
+
+.progress{
+	margin-top: 10px;
+}
+
+.qcm_answer_title{
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.like_answer{
+	font-weight: bold;
+	margin-top: 15px;
+}
+
+.like_answer span{
+	margin-left: 10px;
+}
+
+.like_answer span:hover{
+	color: #0061a1;
+	cursor: pointer;
+}
+
+.like_answer .liked{
+	color: #0061a1;
+}
+
+.template_name{
+	margin-top: 15px;
+	display: none;
+}
+
+.checkbox_template{
+	display: inline-block;
+	margin-right: 15px;
+}
+
+.panel-question{
+	width: 95%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.info-questionnaire{
+	margin-left: 10px;
+}
+
+.show_more_button{
+	margin-top: 20px;
+}
+
+/* PROFIL */
+
+.edit_picture{
+	cursor: pointer;
+}
+
+.card{
+	background-image: url('http://commons.studyrama.com/data/bc2e/152/photo_806.jpg');
+	background-position: center;
+	background-size: cover;
+	width:100%;
+	padding: 10px;
+}
+
+.avatar{
+	width: 135px;
+	border: 2px solid gold;
+}
+
+.card_title{
+	font-weight: bold;
+	color: white;
+	text-shadow: 0 0 2px black;
+  	-moz-text-shadow: 0 0 2px black;
+  	-webkit-text-shadow: 0 0 2px black;
+  	margin-bottom: 0px;
+}
+
+.card_subtext{
+	color: white;
+	text-shadow: 0 0 2px black;
+  	-moz-text-shadow: 0 0 2px black;
+  	-webkit-text-shadow: 0 0 2px black;
+  	margin-top: 0px;
+  	font-style: italic;
+}
+
+.profil_main{
+	margin-top: 0px; 
+	padding: 0px;
+	background-color: white;
+}
+
+.tabs-profil{
+	color: #0061a1;
+}
+
+.tabs-profil span{
+	margin-right: 5px;
+}
+
+.tabs-profil > li.active > a{
+	color: #de9300;
+}
+
+.tabs-profil > li.active > a:hover{
+	color: #de9300;
+}
+
+.tabs-profil > li.active > a:focus{
+	color: #de9300;
+}
+
+.heading_profil{
+	font-weight: bold;
+	color: #4c90bd !important;
+}
+
+.info_title{ 
+	font-weight: bold;}
+
+.info_title_col{
+	text-align: right;
+}
+
+.info_info_col{
+	text-align: left;
+}
+
+.box_profil .panel2{
+	height: 100%;
+	margin: 0px;
+}
+
+.panel_cours{
+	display: inline-block;
+}
+
+.panel_cours .panel-heading{
+	font-weight: bold;
+	color: #428BCA !important;
+}
+
+.panel_cours .btn{
+	margin-bottom: 5px;
+}
+
+.panel_cours .panel_heading{
+	font-weight: bold;
+	color: #428BCA !important;
+}
+
+.container_profil{
+	height:100%;
+}
+
+.hidden{
+	display: none;
+}
+
+.button_cours{
+	margin-top: 10px;
+}
+
+.panel_scroll_profil{
+	overflow-y: auto;
+}
+
+.achievement-profil{
+	display: block;
+	padding: 10px;
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 15px;
+	border: 1px solid green;
+	background-color: #dff0d8;
+}
+
+.notation_div{
+	text-align: left;
+}
+
+.notation_div span{
+	position: absolute;
+	bottom: 8px;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+ 	.panel_scroll_profil{
+ 		font-size: 12px;
+ 	}
+ 	
+ 	.heading_profil{
+ 		display: none;
+ 	}
+ 	
+ }
+ 
+ @media screen and (max-width: 425px) {
+ 	.achievement-profil img{
+		display: none;
+	}
+ }
+ 
+ @media screen and (max-width: 375px) {
+ 	.panel_cours .btn{
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 5px;
+	}
+ }
+
+/*
+.profil_head{
+	background-color: lightgrey;
+	border-bottom: 1px solid black;
+	padding: 15px;
+}
+
+.nom_prenom{
+	vertical-align: middle;
+}
+
+.entete{
+	font-weight: bold;
+}
+
+.achievement_column{
+	border-right: 1px solid black;
+	height: 100%;
+}
+
+*/
+
+/* HOME ELEVE */
+
+.anonymat_reponses_text{
+	font-style: italic;
+	font-size: 12px;
+	margin-bottom: 10px;
+	display:block;
+}
+
+.alreadyAnswered{
+	opacity: 0.5;
+}
+
+.questionnaire_live_eleve{
+	background-color: rgba(139, 195, 74, 0.63) !important;
+}
+
+.not_available{
+	background-color: rgba(244, 67, 54, 0.55);
+}
+
+.panel_questionnaire{
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+	background-color: #428BCA;
+	color: white;
+	border-color: darkblue;
+}
+
+.div_questionnaires_eleves{
+	margin: 0 auto;
+	width: 80%;
+}
+
+.radio_roti span{
+	font-style: italic;
+	font-size: 12px;
+	margin-left: 20px;
+}
+
+.infos_sup{
+	font-style: italic;
+	font-size: 12px;
+	margin-left: 20px;
+}
+
+@media screen and (max-width: 767px) {
+	.radio_roti span{
+		margin-left: 5px;
+	}
+
+}
+
+.panel_questionnaire .panel-heading{
+	background-color: lightblue;
+	color: black;
+	font-weight: bold;
+	border-color: darkblue;
+}
+
+.complement_btn_questionnaire span{
+	margin-right: 5px;
+}
+
+.button_questionnaire{
+	background-color: #428BCA;
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+	border-radius: 20px;
+	padding: 10px;
+	color: white;
+}
+
+.modal_questionnaire .glyphicon-send{
+	margin-right: 5px;
+}
+
+.title_div{
+	margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.colonne-eleve{
+	padding: 0px !important;
+}
+
+.titre_cours{
+    width: 90%;
+    padding: 10px;
+    color: white;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.div_commentaire{
+   width:364px;
+   margin: auto;
+}
+.btn_eleve{
+	margin: 0 auto;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.btn_eleve span{
+	margin-right: 5px;
+}
+
+.post-footer-option li{
+    float:left;
+    margin-right:50px;
+    padding-bottom:15px;
+}
+
+.post-footer-option li a{
+    color:#AFB4BD;
+    font-weight:500;
+    font-size:1.3rem;
+}
+
+.photo-profile{
+    border:1px solid #DDD;    
+}
+
+.anchor-username h4{
+    font-weight:bold;    
+}
+
+.anchor-time{
+    color:#ADB2BB;
+    font-size:1.2rem;
+}
+
+.post-footer-comment-wrapper{
+    background-color:#F6F7F8;
+}
+
+.panel-eleve{
+	width: 100%;
+	background-color: #f8f8f8;
+}
+
+.media-eleve{
+	margin: 0 auto;
+}
+
+.notification-list, .n-user-list {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.notification-list > li {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+    padding: 5px 0;
+}
+.notification-list .cat-icon {
+    width: 20px;
+}
+.notification-list .avatar {
+    width: 30px;
+}
+
+.n-user-list{margin-bottom:5px;}
+.n-user-list:after{clear:both; content:''; display:table;}
+.n-user-list li{float:left;}
+.n-user-list li + li{margin-left:3px;}
+.n-user-list li a, .n-user-list li a:hober{text-decoration:none;}
+
+/* COMMENTAIRE */
+
+.message{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.doted{
+  border: none;
+  border-top: 1px dotted grey;
+  color: #fff;
+  background-color: #fff;
+  height: 1px;
+  width: 100%;
+}
+
+.reponse_a_ecrire{
+	width: 100%;
+}
+
+.btn-precedent{
+	margin: 0 auto;
+	display: block;
+}
+
+#previous{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.btn-envoie{
+	margin-bottom: 20px;
+}
+
+/* PAGE 404 */
+
+.div_404{
+	margin: 0 auto;
+	text-align: center;
+	height: 100%;
+}
+
+.div_404 img{
+	height: 80%;
+}
+
+.div_404_mobile{
+	text-align: center;
+	display: none;
+	background-color: #f4a100;
+	padding: 20px;
+	width: 80%;
+	border-radius: 10px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.div_404_mobile h1{
+	font-size: 150px;
+	color: #0061a1;
+	font-weight: bold;
+}
+
+.div_404_mobile p{
+	color: white;
+}
+
+.img_404{
+    float: right;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+@media screen and (max-width: 585px) {   
+	.div_404_mobile{
+		display: block;
+	}
+	.div_404{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 425px) {   
+	.div_404_mobile h1{
+		font-size: 100px;
+	}
+}
+
+/* LIVE QUESTIONNAIRE */
+
+.wordCloud{
+	width: 100%;
+	height: 200px;
+}
+
+.btn_live_off{
+	margin-top: 20px;
+}
+
+.add_element_live_div{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+#instruction_textarea{
+	width: 100%;
+}
+
+.btn-live-eleve{
+	margin-top: 10px;
+}
+
+.panel_live_comment{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-align: left;
+}
+
+.panel_live_comment .panel-heading{
+	color: #848282;
+}
+
+
+/* EASTER EGG SNAKE */
+
+#snakeBoard{
+	background:
+			linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+			linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+			linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+			linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+			linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+			linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+	background-color: #131313;
+	background-size: 20px 20px;
+	display: block;
+	margin: 0 auto;
+}

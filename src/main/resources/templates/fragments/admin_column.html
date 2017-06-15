@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="admin_column (type)" class="col-md-2 text_center colonne-gauche" id="colonne-gauche">
+    <div class="scrollableDiv">
+
+        <div class="title_div blue">Catégories</div>
+
+        <a href="/home">
+        <div th:class="'categorie-home' + ${type == 'questionnaire' ? ' current_categorie' : ''}"><span
+                th:class="'glyphicon ' + ${type == 'questionnaire' ? 'glyphicon-folder-open' : 'glyphicon-folder-close'}"></span> <span
+                class="dossier_name">Les questionnaires</span></div></a>
+        <a href="/commentaire/view_all">
+        <div th:class="'categorie-home' + ${type == 'alerte' ? ' current_categorie' : ''}"><span
+                th:class="'glyphicon ' + ${type == 'alerte' ? 'glyphicon-folder-open' : 'glyphicon-folder-close'}"></span> <span
+                class="dossier_name">Les alertes</span></div></a>
+        <a href="/module/notes">
+        <div th:class="'categorie-home' + ${type == 'note' ? ' current_categorie' : ''}"><span
+                th:class="'glyphicon ' + ${type == 'note' ? 'glyphicon-folder-open' : 'glyphicon-folder-close'}"></span> <span
+                class="dossier_name">Les notes de classes</span></div></a>
+
+
+        <button type="button" class="btn btn-primary btn_add_questionnaire2"
+                data-toggle="modal" data-target="#notifications"><span
+                class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+            Notifications <span th:if="${notifications.size() > 0}" class="badge" th:text="${notifications.size()}">10</span></button>
+    </div>
+
+    <div id="notifications" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-blue"><span
+                            class="glyphicon glyphicon-bell"></span> Mes
+                        notifications</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="notifications">
+                        <ul class="notification-list" th:each="notification : ${notifications}">
+                            <li>
+                                <a th:href="${notification.value.get('type') == 'module' ? '/module/view/'+ notification.value.get('id') : '/commentaire/view/'+ notification.value.get('id') }">
+                                <div class="media">
+                                    <div class="media-left">
+                                            <img th:src="${notification.value.get('type') == 'module' ? 'https://cdn4.iconfinder.com/data/icons/mayssam/512/heart-128.png' : 'https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/caution-128.png'}"
+                                                 class="media-object cat-icon rounded-circle"
+                                                 alt="...">
+                                    </div>
+                                    <div class="media-body">
+                                        <ul class="n-user-list">
+                                            <li><img
+                                                    th:src="${notification.value.get('photo')}"
+                                                    class="avatar rounded"
+                                                    alt="..."></li>
+                                        </ul>
+                                        <p class="media-heading"><b th:text="${notification.value.get('professeur')}">Ce
+                                            professeur</b><span th:text="${notification.value.get('type') == 'module' ? ' a noté la classe du cours ' : ' a signalé ce commentaire sur le cours '}">a noté la classe
+                                            du cours </span><b th:text="${notification.value.get('cours')}">Mathématiques</b>
+                                        </p>
+                                    </div>
+                                </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <p th:if="${notifications.size() == 0}">Aucune notification pour le moment</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
