@@ -1,8 +1,7 @@
 # Opossum-GL
 Projets techno web et génie logiciel
 
-Réalisé par Guillaume Lachaud, Victor Ostertag, Arthur Vervaet, Alexandra
-Obertelli et Nicolas Meneux.
+Réalisé par Guillaume Lachaud, Nicolas Meneux, Alexandra Obertelli, Victor Ostertag, Arthur Vervaet.
 
 # Lancer le site
 Pour faire tourner le code, ouvrez le terminal ou l'invite de commande
