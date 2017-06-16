@@ -5,7 +5,7 @@ Réalisé par Guillaume Lachaud, Nicolas Meneux, Alexandra Obertelli, Victor Ost
 
 # Lancer le site
 Pour faire tourner le code, ouvrez le terminal ou l'invite de commande
-et placez vous dans le dossier où est stocké l'application.
+et placez vous dans le dossier où est stockée l'application.
 ## Unix (Mac OS X, Linux)
 ### Via un war
 ```
