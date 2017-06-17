@@ -144,6 +144,7 @@ public class QuestionnaireController {
                        @RequestParam(value = "dateDebut", required = true) String dateDebut,
                        @RequestParam(value = "dateFin", required = true) String dateFin,
                        @RequestParam(value = "anonymat", required = true) boolean anonymat,
+                       @RequestParam(value = "dateChecked", required = true) boolean dateChecked,
                        Model model) {
         if(questionnaireRepository.exists(id)){
             Questionnaire q = questionnaireRepository.findById(id);
@@ -152,7 +153,7 @@ public class QuestionnaireController {
                 q.setName(titre);
                 q.setAnonyme(anonymat);
                 q.setNumberOfQuestions(nb_question);
-                if (!dateDebut.equals("") && !dateFin.equals("")) {
+                if (!dateDebut.equals("") && !dateFin.equals("") && dateChecked) {
                     DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     try {
                         Date dateDeDebut = df.parse(dateDebut);
@@ -162,6 +163,9 @@ public class QuestionnaireController {
                     } catch (ParseException e) {
                         return "nok";
                     }
+                }else{
+                    q.setDateDebut(null);
+                    q.setDateFin(null);
                 }
                 questionnaireRepository.save(q);
                 return "ok";

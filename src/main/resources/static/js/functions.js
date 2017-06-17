@@ -259,20 +259,20 @@ $( document ).ready(function(){
                 error = true;
             }
             if($(this).find("input[name='type_question']").val() == "selecteur"){
-                $("#groupe_select-"+id).find("input").each(function(){
+                $("#"+id_modal).find("#groupe_select-"+id).find("input").each(function(){
                     if($(this).val() == "") {
                         $(this).parent().addClass("has-error");
-                        $("#selecteur_"+id).find(".label_question_modal").addClass("text-red");
+                        $("#"+id_modal).find("#selecteur_"+id).find(".label_question_modal").addClass("text-red");
                         error = true;
                     }
                 });
             }
             if($(this).find("input[name='type_question']").val() == "qcm"){
 				/*var auMoinsUnJuste = false; */
-                $("#groupe_qcm-"+id).find("input").each(function(){
+                $("#"+id_modal).find("#groupe_qcm-"+id).find("input").each(function(){
                     if($(this).val() == "") {
                         $(this).parent().addClass("has-error");
-                        $("#qcm_"+id).find(".label_question_modal").addClass("text-red");
+                        $("#"+id_modal).find("#qcm_"+id).find(".label_question_modal").addClass("text-red");
                         error = true;
                     }/*if($(this).attr("class") == "form-control is_true"){
 					 auMoinsUnJuste = true;
@@ -285,12 +285,12 @@ $( document ).ready(function(){
 				 }*/
             }
             if($(this).find("input[name='type_question']").val() == "notation"){
-                var val1 = $("#notation_"+id).find("input[name='valeur_question']").val();
-                var val2 = $("#notation_"+id).find("input[name='valeur_question2']").val();
+                var val1 = $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question']").val();
+                var val2 = $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question2']").val();
                 if(val1 == "" || val2 == "" || parseInt(val1) < 0 || parseInt(val2) < 0 || parseInt(val1) > parseInt(val2)){
-                    $("#notation_"+id).find("input[name='valeur_question']").parent().addClass("has-error");
-                    $("#notation_"+id).find("input[name='valeur_question2']").parent().addClass("has-error");
-                    $("#notation_"+id).find(".label_question_modal").addClass("text-red");
+                    $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question']").parent().addClass("has-error");
+                    $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question2']").parent().addClass("has-error");
+                    $("#"+id_modal).find("#notation_"+id).find(".label_question_modal").addClass("text-red");
                     error = true;
                 }
             }
@@ -304,7 +304,7 @@ $( document ).ready(function(){
                 dateFin = $("#"+id_modal).find(".date").find("input").eq(1).val();
             }
 			$.post("/questionnaire/edit", {id: id_questionnaire, titre: title,
-				nb_question: nb_question, dateDebut: dateDebut, dateFin: dateFin, anonymat: $("#anonymat2").is(":checked")},
+				nb_question: nb_question, dateDebut: dateDebut, dateFin: dateFin, anonymat: $("#anonymat2").is(":checked"), dateChecked: $('#enable_datepicker2').is(":checked")},
 				function(data){
                     var numero = 0;
                     if(data != "nok") {
@@ -349,20 +349,21 @@ $( document ).ready(function(){
 					$.post("/question/edit", {datas: json, id_questionnaire: id_questionnaire}, function(data){
 						if(data == "nok"){
                             $.notify("Une erreur est survenu pour l'édition des questions", "warn");
-                        }
+                        }else{
+                            //Ajout template si selectionné
+                            var nom_template = $("#"+id_modal).find(".template_name").find("input").val();
+                            $.post("/template/edit", {nom: nom_template, id_questionnaire: id_questionnaire, checked: $("#template2").is(":checked")}, function(data){
+                                if(data == "nok"){
+                                    $.notify("Une erreur est survenu pour l'édition du template", "warn");
+                                }else{
+                                    location.reload();
+                                }
+                            });
+						}
 					});
 				}else{
 					$.notify("Une erreur est survenu pour l'édition du questionnaire", "warn");
 				}
-			});
-            //Ajout template si selectionné
-			var nom_template = $("#"+id_modal).find(".template_name").find("input").val();
-			$.post("/template/edit", {nom: nom_template, id_questionnaire: id_questionnaire, checked: $("#template2").is(":checked")}, function(data){
-				if(data == "nok"){
-                    $.notify("Une erreur est survenu pour l'édition du template", "warn");
-                }else{
-                    location.reload();
-                }
 			});
 		}
     });
@@ -407,20 +408,20 @@ $( document ).ready(function(){
 				error = true;
 			}
 			if($(this).find("input[name='type_question']").val() == "selecteur"){
-				$("#groupe_select-"+id).find("input").each(function(){
+                $("#"+id_modal).find("#groupe_select-"+id).find("input").each(function(){
 					if($(this).val() == "") {
 						$(this).parent().addClass("has-error");
-						$("#selecteur_"+id).find(".label_question_modal").addClass("text-red");
+                        $("#"+id_modal).find("#selecteur_"+id).find(".label_question_modal").addClass("text-red");
 						error = true;
 					}
 				});
 			}
 			if($(this).find("input[name='type_question']").val() == "qcm"){
 				/*var auMoinsUnJuste = false; */
-				$("#groupe_qcm-"+id).find("input").each(function(){
+                $("#"+id_modal).find("#groupe_qcm-"+id).find("input").each(function(){
 					if($(this).val() == "") {
 						$(this).parent().addClass("has-error");
-						$("#qcm_"+id).find(".label_question_modal").addClass("text-red");
+                        $("#"+id_modal).find("#qcm_"+id).find(".label_question_modal").addClass("text-red");
 						error = true;
 					}/*if($(this).attr("class") == "form-control is_true"){
 						auMoinsUnJuste = true;
@@ -433,19 +434,19 @@ $( document ).ready(function(){
 				}*/
 			}
 			if($(this).find("input[name='type_question']").val() == "notation"){
-				var val1 = $("#notation_"+id).find("input[name='valeur_question']").val();
-				var val2 = $("#notation_"+id).find("input[name='valeur_question2']").val();
+				var val1 = $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question']").val();
+				var val2 = $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question2']").val();
 				if(val1 == "" || val2 == "" || parseInt(val1) < 0 || parseInt(val2) < 0 || parseInt(val1) > parseInt(val2)){
-					$("#notation_"+id).find("input[name='valeur_question']").parent().addClass("has-error");
-					$("#notation_"+id).find("input[name='valeur_question2']").parent().addClass("has-error");
-					$("#notation_"+id).find(".label_question_modal").addClass("text-red");
+                    $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question']").parent().addClass("has-error");
+                    $("#"+id_modal).find("#notation_"+id).find("input[name='valeur_question2']").parent().addClass("has-error");
+                    $("#"+id_modal).find("#notation_"+id).find(".label_question_modal").addClass("text-red");
 					error = true;
 				}
 			}
 		});
-		if(template && $(".template_name").find("input").val() == ""){
+		if(template && $("#"+id_modal).find(".template_name").find("input").val() == ""){
 			error = true;
-			$(".template_name").addClass("has-error");
+            $("#"+id_modal).find(".template_name").addClass("has-error");
 		}
 		var nb_question = $("#"+id_modal).find(".div_question").length;
 		//Si pas d'erreur, ajout du questionnaire et des questions

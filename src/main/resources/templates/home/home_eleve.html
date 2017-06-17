@@ -88,7 +88,7 @@
         </div>
 
         <div class="div_questionnaires_eleves">
-        <div th:each="questionnaire : ${questionnaires}" th:id="${questionnaire.id}" th:if="${(questionnaire.type == 'live' && questionnaire.ongoing == true) || questionnaire.type == 'questionnaire'}" class="col-md-6">
+        <div th:each="questionnaire : ${questionnaires}" th:id="${questionnaire.id}" th:if="${(questionnaire.type == 'live' && questionnaire.ongoing == true) || (questionnaire.type == 'questionnaire' && questionnaire.getQuestions().size() > 0)}" class="col-md-6">
             <div th:class="'panel panel-default panel-eleve text-center'+${questionnaire.isAvailable() ? '' : ' not_available'} + ${questionnaire.type == 'live' ? ' questionnaire_live_eleve' : ''} + ${questionnaire.type != 'live' && questionnaire.getQuestions().iterator().next().hasAlreadyAnswered(user) ? ' alreadyAnswered' : ''}">
                 <div class="panel-body">
                     <section class="post-heading">

@@ -21,11 +21,16 @@
 
             <h2 class="text-center" th:text="${questionnaire.name}">Titre du questionnaire</h2>
 
-            <div class="div_commentaire">
+            <div class="info text-center" th:if="${user.role == 'admin'}">
+                <p><b>Professeur : </b> <psan th:text="${questionnaire.user.firstName + ' ' + questionnaire.user.lastName}"></psan></p>
+                <p><b>Module : </b> <span th:text="${questionnaire.module.name}"></span></p>
+            </div>
+
+            <div class="div_commentaire" th:if="${user.role == 'teacher'}">
                 <button class="btn btn-primary btn_eleve" data-toggle="modal" data-target="#previsualisation">
                     <span class="glyphicon glyphicon-eye-open"></span> Prévisualisation
                 </button>
-                <button th:if="${user.role == 'teacher'}" class="btn btn-primary btn_eleve" data-toggle="modal" data-target="#modification">
+                <button class="btn btn-primary btn_eleve" data-toggle="modal" data-target="#modification">
                     <span class="glyphicon glyphicon-pencil"></span> Modifier le questionnaire
                 </button>
             </div>
@@ -389,7 +394,7 @@
                     <div class="form-group row">
                         <div class="col-md-1">
                             <div class="checkbox icheck-primary">
-                                <input id="enable_datepicker2" type="checkbox"/>
+                                <input id="enable_datepicker2" type="checkbox" th:checked="${questionnaire.dateDebut != null || questionnaire.dateFin != null ? 'true' : 'false'}"/>
                                 <label for="enable_datepicker2"></label>
                             </div>
                         </div>
@@ -401,7 +406,7 @@
                                         <input type='text'
                                                class="form-control datepick"
                                                placeholder="De"
-                                               disabled="disabled" th:value="${ questionnaire.dateDebut != null ? #calendars.format(questionnaire.dateDebut, 'dd/MM/yyyy HH:mm') : ''}"/>
+                                               th:disabled="${questionnaire.dateDebut != null || questionnaire.dateFin != null ? 'false' : 'disabled'}" th:value="${ questionnaire.dateDebut != null ? #calendars.format(questionnaire.dateDebut, 'dd/MM/yyyy HH:mm') : ''}"/>
                                         <span class="input-group-addon">
 		                        <span class="glyphicon glyphicon-calendar"></span>
 		                    </span>
@@ -414,7 +419,7 @@
                                         <input type='text'
                                                class="form-control datepick"
                                                placeholder="A"
-                                               disabled="disabled" th:value="${ questionnaire.dateDebut != null ? #calendars.format(questionnaire.dateFin, 'dd/MM/yyyy HH:mm') : ''}"/>
+                                               th:disabled="${questionnaire.dateDebut != null || questionnaire.dateFin != null ? 'false' : 'disabled'}" th:value="${ questionnaire.dateDebut != null ? #calendars.format(questionnaire.dateFin, 'dd/MM/yyyy HH:mm') : ''}"/>
                                         <span class="input-group-addon">
 		                        <span class="glyphicon glyphicon-calendar"></span>
 		                    </span>
@@ -457,7 +462,7 @@
                                             </div>
 
                                             <div class="col-md-9">
-                                                <div class="btn-group btn-group-justified">
+                                                <div class="btn-group">
                                                     <div class="btn-group">
                                                         <button type="button"
                                                                 class="btn btn-primary type_question"
@@ -707,6 +712,9 @@
 
             </div>
             <div class="modal-footer">
+                <p style="color:red;">Attention ! Si vous avez <b>changé le type d'une question</b> ou <b>ajouté une nouvelle question</b>,
+                    toutes les réponses déjà existantes seront invalidées et
+                    les élèves devront répondre une nouvelle fois à ce questionnaire.</p>
                 <button type="button" class="btn btn-success" th:action="@{/questionnaire/add}"
                         id="edit_questionnaire_submit" th:attr="data-questionnaire=${questionnaire.id}">Editer
                 </button>

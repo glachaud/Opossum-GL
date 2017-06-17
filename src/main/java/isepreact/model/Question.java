@@ -85,6 +85,8 @@ public class Question implements Comparable<Question> {
     this.answers = answers;
   }
 
+  public void removeAnswer(Answer answer){ this.answers.remove(answer); }
+
   public Integer getIndexQuestion() {
     return indexQuestion;
   }

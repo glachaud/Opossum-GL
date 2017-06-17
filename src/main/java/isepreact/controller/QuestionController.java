@@ -4,6 +4,7 @@ import isepreact.model.Answer;
 import isepreact.model.Question;
 import isepreact.model.Questionnaire;
 import isepreact.model.User;
+import isepreact.repository.AnswerRepository;
 import isepreact.repository.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +33,8 @@ public class QuestionController {
     private QuestionnaireRepository questionnaireRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
 
     @PostMapping(path = "/add_question") // URL /database/show
     @ResponseBody
@@ -106,8 +109,9 @@ public class QuestionController {
     @ResponseBody
     public String edit(HttpServletRequest request, @RequestParam(value = "datas", required = true) String data,
                        @RequestParam(value = "id_questionnaire", required = true) Integer id_questionnaire,
-                                   Model model) {
+                       Model model) {
         User user = userRepository.findByEmail(request.getRemoteUser());
+        Boolean deleteAll = false;
         if(questionnaireRepository.exists(id_questionnaire)){
             Questionnaire questionnaire = questionnaireRepository.findById(id_questionnaire);
             if(questionnaire.getUser().getId() == user.getId()){
@@ -139,10 +143,14 @@ public class QuestionController {
                         q = questionRepository.findById(id);
                         if (q.getQuestionnaire().getUser().getId() == user.getId()) {
                             toDelete.remove(q);
+                            if(!q.getType().equals(type)) {
+                                deleteAll = true;
+                            }
                         }
                     }else{
                         q = new Question();
                         q.setQuestionnaire(questionnaire);
+                        deleteAll = true;
                     }
                     q.setIndexQuestion(index);
                     q.setQuestion(question);
@@ -155,6 +163,15 @@ public class QuestionController {
                     q.setMin_grade(min_range);
                     questionnaire.addQuestion(q);
                     questionRepository.save(q);
+                }
+                if(deleteAll == true){
+                        Set<Answer> answerToDel = answerRepository.findByQuestionnaire_id(questionnaire.getId());
+                        for (Iterator<Answer> it2 = answerToDel.iterator(); it2.hasNext(); ) {
+                            Answer a = it2.next();
+                            it2.remove();
+                            a.getQuestion().removeAnswer(a);
+                            answerRepository.delete(a);
+                        }
                 }
                 for (Iterator<Question> it = toDelete.iterator(); it.hasNext();) {
                     Question q = it.next();
