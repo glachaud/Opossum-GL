@@ -40,6 +40,8 @@ public class QuestionnaireController {
     private UserRepository userRepository;
     @Autowired
     private ConversationRepository conversationRepository;
+    @Autowired
+    private FolderRepository folderRepository;
 
     @RequestMapping(path = "/show") // URL /database/add
     public String showQuestionnaire(Model model) {
@@ -61,6 +63,7 @@ public class QuestionnaireController {
                     model.addAttribute("templates", templateRepository.findByUser_id(user.getId()));
                     model.addAttribute("modules", moduleRepository.findByTeacher_id(user.getId()));
                     model.addAttribute("module_id", moduleRepository.findByTeacher_id(questionnaire.getModule().getId()));
+                    model.addAttribute("folders", folderRepository.findByModule_idAndTeacher_idAndType(questionnaire.getModule().getId(), user.getId(), "questionnaire"));
                 }
                 if(user.getRole().equals("admin")) {
                     List<Conversation> alertes = conversationRepository.findByOffensifTrueAndOffensifViewedByAdminFalseOrderByDatePourNotif();
