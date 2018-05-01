@@ -49,6 +49,7 @@ public class AnswerController {
                     a.setQuestion(q);
                     a.setUser(user);
                     a.setAnswer(answer);
+                    a.setQuestionnaire(questionnaire);
                     a.setDate(new Date());
                     answerRepository.save(a);
                     return "ok";
@@ -76,6 +77,7 @@ public class AnswerController {
                     a.setUser(user);
                     a.setAnswer(answer);
                     a.setDate(new Date());
+                    a.setQuestionnaire(questionnaire);
                     answerRepository.save(a);
                     String question = q.getQuestion();
                     String type = q.getType();

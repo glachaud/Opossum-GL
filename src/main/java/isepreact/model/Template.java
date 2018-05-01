@@ -39,7 +39,7 @@ public class Template {
         this.nom = nom;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     public Questionnaire getQuestionnaire() {
         return questionnaire;
     }

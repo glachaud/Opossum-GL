@@ -16,7 +16,7 @@ public class Answer implements Comparable<Answer>{
 
     private User user;
 
-    private QuestionnaireAnswer questionnaireAnswer;
+    private Questionnaire questionnaire;
 
     private String answer;
 
@@ -42,12 +42,12 @@ public class Answer implements Comparable<Answer>{
     }
 
     @ManyToOne
-    public QuestionnaireAnswer getQuestionnaireAnswer() {
-        return questionnaireAnswer;
+    public Questionnaire getQuestionnaire() {
+        return questionnaire;
     }
 
-    public void setQuestionnaireAnswer(QuestionnaireAnswer questionnaireAnswer) {
-        this.questionnaireAnswer = questionnaireAnswer;
+    public void setQuestionnaire(Questionnaire questionnaire) {
+        this.questionnaire = questionnaire;
     }
 
     @ManyToOne
